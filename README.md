@@ -1,2 +1,2 @@
 # maggie_drivers
-ROS packages for the devices of the Social Robot Maggie.
+ROS packages for the drivers for the Social Robot Maggie.
