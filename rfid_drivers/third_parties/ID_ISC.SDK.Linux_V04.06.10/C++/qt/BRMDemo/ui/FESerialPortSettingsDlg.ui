@@ -1,0 +1,237 @@
+<ui version="4.0" >
+ <class>FESerialPortSettingsDlg</class>
+ <widget class="QDialog" name="FESerialPortSettingsDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>337</width>
+    <height>294</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Serial port settings</string>
+  </property>
+  <widget class="QLabel" name="label" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Timeout</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>101</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Delay time</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="timeoutLineEdit" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>30</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="txTimeCheckBox" >
+   <property name="geometry" >
+    <rect>
+     <x>200</x>
+     <y>30</y>
+     <width>131</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Tx time control</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="delayTimeLineEdit" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>90</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="rtsCheckBox" >
+   <property name="geometry" >
+    <rect>
+     <x>200</x>
+     <y>90</y>
+     <width>131</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>RTS</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="charTimeoutLineEdit" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>150</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>181</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Char timeout multiplier</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="dtrCheckBox" >
+   <property name="geometry" >
+    <rect>
+     <x>200</x>
+     <y>150</y>
+     <width>95</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>DTR</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="baudRateComboBox" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>210</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="editable" >
+    <bool>true</bool>
+   </property>
+   <property name="currentIndex" >
+    <number>0</number>
+   </property>
+   <item>
+    <property name="text" >
+     <string>9600</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>19200</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>38400</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>57600</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>115200</string>
+    </property>
+   </item>
+   <item>
+    <property name="text" >
+     <string>230400</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox" >
+   <property name="geometry" >
+    <rect>
+     <x>90</x>
+     <y>250</y>
+     <width>161</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="layoutDirection" >
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="orientation" >
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="standardButtons" >
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4" >
+   <property name="geometry" >
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>67</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Baud rate</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>FESerialPortSettingsDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>FESerialPortSettingsDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

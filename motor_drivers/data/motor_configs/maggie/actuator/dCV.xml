@@ -1,0 +1,30 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<driver>
+	<driverName>VerticalNeckDriver</driverName>
+	<driverID>3</driverID>
+	<driverType>MCDC3006S</driverType>
+	<mcdc3006s>
+		<maxPos>40000</maxPos>
+		<minPos>-15000</minPos>
+		<maxVel>1000</maxVel>
+		<maxAcc>200</maxAcc>
+		<maxDec>200</maxDec>
+		<contCurrent>500</contCurrent>
+		<peakCurrent>1200</peakCurrent>
+		<calibrationCurrentLimit>500</calibrationCurrentLimit>
+		<calibrationSensorPosition>33611</calibrationSensorPosition>
+		<calibrationSpeed>250</calibrationSpeed>
+		<calibrationTimeOut>10000</calibrationTimeOut>
+		<encPulsesPerRev>512</encPulsesPerRev>
+		<driverMultipFactor>4</driverMultipFactor>
+		<reductionFactor>60</reductionFactor>
+		<rs232>
+			<serialDevice>/dev/cuello_horizontal</serialDevice>
+			<baudRate>19200</baudRate>
+		</rs232>
+		<semaphore>
+			<semFile>semVertNeck</semFile>
+		</semaphore>
+	</mcdc3006s>
+</driver>

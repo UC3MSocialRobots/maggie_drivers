@@ -1,0 +1,246 @@
+<ui version="4.0" >
+ <author>Benjamin Stadin, FEIG ELECTRONIC GmbH</author>
+ <class>NotifySampleDlg</class>
+ <widget class="QMainWindow" name="NotifySampleDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>875</width>
+    <height>584</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy>
+    <hsizetype>0</hsizetype>
+    <vsizetype>0</vsizetype>
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>FEIG ELECTRONIC GmbH - Notification Sample</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset/>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QLineEdit" name="statusLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>250</y>
+      <width>759</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="protocolGroupBox" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>280</y>
+      <width>759</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Protocol window</string>
+    </property>
+    <widget class="QTextEdit" name="protocolTextEdit" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>741</width>
+       <height>211</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <family>Misc Fixed</family>
+      </font>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="receiveWindowGroupBox" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>759</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="sizePolicy" >
+     <sizepolicy>
+      <hsizetype>5</hsizetype>
+      <vsizetype>5</vsizetype>
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="title" >
+     <string>Receive window</string>
+    </property>
+    <property name="alignment" >
+     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+    </property>
+    <widget class="QTextEdit" name="receiveWindowTextEdit" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>741</width>
+       <height>211</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <family>Misc Fixed</family>
+      </font>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>60</y>
+      <width>67</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Port</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="fileCheckBox" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>150</y>
+      <width>101</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Write to file</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clearProtPushButton" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>480</y>
+      <width>101</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Clear prot.</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="portLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>80</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>10005</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="withAckCheckBox" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>120</y>
+      <width>95</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>With ACK</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="listenPushButton" >
+    <property name="enabled" >
+     <bool>true</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>10</y>
+      <width>101</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Listen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clearRecWndPushButton" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>200</y>
+      <width>101</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Clr rcv. win.</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>875</width>
+     <height>35</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionFind_reader" >
+   <property name="text" >
+    <string>Find reader</string>
+   </property>
+  </action>
+  <action name="actionAbout" >
+   <property name="text" >
+    <string>About</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>NotifySampleDlg</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actuator>
+	<actuatorName>ActuatorExample</actuatorName>
+	<actuatorID>0</actuatorID>
+	<actuatorParameters>
+		<limits>
+			<maxPos>4.2</maxPos>
+			<minPos>1.024</minPos>
+			<maxVel>5.236</maxVel>
+			<maxAcc>0</maxAcc>
+			<maxDec>0</maxDec>
+			<contCurrent>0</contCurrent>
+			<peakCurrent>0</peakCurrent>
+		</limits>
+		<calibration>
+			<calibrationSensorPosition>2.62</calibrationSensorPosition>
+			<calibrationCurrentLimit>0</calibrationCurrentLimit>
+			<calibrationSpeed>2.62</calibrationSpeed>
+			<calibrationTimeOut>0</calibrationTimeOut>
+		</calibration>
+		<driver>
+			<driverName>DriverExample</driverName>
+			<driverID>1</driverID>
+			<driverType>dynamixel</driverType>
+			<driverConfigFile>necky/dynamixel/cuello_dynamixel1.xml</driverConfigFile>
+		</driver>
+	</actuatorParameters>
+</actuator>

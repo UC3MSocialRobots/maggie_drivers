@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actuator>
+	<actuatorName>ActuatorExample</actuatorName>
+	<actuatorID>0</actuatorID>
+	<actuatorParameters>
+		<limits>
+			<maxPos>30.18</maxPos>
+			<minPos>-30.18</minPos>
+			<maxVel>100</maxVel>
+			<maxAcc>100</maxAcc>
+			<maxDec>100</maxDec>
+			<contCurrent>800</contCurrent>
+			<peakCurrent>1200</peakCurrent>
+		</limits>
+		<calibration>
+			<calibrationSensorPosition>3.2</calibrationSensorPosition>
+			<calibrationCurrentLimit>800</calibrationCurrentLimit>
+			<calibrationSpeed>0.25</calibrationSpeed>
+			<calibrationTimeOut>10000</calibrationTimeOut>
+		</calibration>
+		<driver>
+			<driverName>DriverExample</driverName>
+			<driverID>1</driverID>
+			<driverType>MCDC3006S</driverType>
+			<driverConfigFile>text.xml</driverConfigFile>
+		</driver>
+	</actuatorParameters>
+</actuator>

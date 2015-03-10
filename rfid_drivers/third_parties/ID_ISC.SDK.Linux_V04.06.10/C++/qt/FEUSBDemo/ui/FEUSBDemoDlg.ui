@@ -1,0 +1,405 @@
+<ui version="4.0" >
+ <class>FEUSBDemoDlg</class>
+ <widget class="QMainWindow" name="FEUSBDemoDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>835</width>
+    <height>316</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QGroupBox" name="groupBox" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>10</y>
+      <width>431</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Reader</string>
+    </property>
+    <widget class="QTableWidget" name="scanTable" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>411</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="selectionBehavior" >
+      <enum>QAbstractItemView::SelectItems</enum>
+     </property>
+     <column>
+      <property name="text" >
+       <string>ScanNo</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>DeviceID</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>DeviceHnd</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Present</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3" >
+    <property name="geometry" >
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>131</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Scan Functions</string>
+    </property>
+    <widget class="QPushButton" name="clearScanListButton" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>ClearScanList</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getScanListParaButton" >
+     <property name="geometry" >
+      <rect>
+       <x>9</x>
+       <y>110</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>GetScanListPara</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="scanAndOpenButton" >
+     <property name="geometry" >
+      <rect>
+       <x>9</x>
+       <y>70</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>ScanAndOpen</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getScanListSizeButton" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>GetScanListSize</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="scanButton" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Scan</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4" >
+    <property name="geometry" >
+     <rect>
+      <x>580</x>
+      <y>10</y>
+      <width>251</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Device Functions</string>
+    </property>
+    <widget class="QPushButton" name="closeDeviceButton" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>CloseDevice</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getDeviceParaButton" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>110</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>GetDevicePara</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getDeviceListButton" >
+     <property name="geometry" >
+      <rect>
+       <x>130</x>
+       <y>30</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>GetDeviceList</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="getDeviceHandleButton" >
+     <property name="geometry" >
+      <rect>
+       <x>130</x>
+       <y>70</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>GetDeviceHandle</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="isDevicePresentButton" >
+     <property name="geometry" >
+      <rect>
+       <x>130</x>
+       <y>110</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>IsDevicePresent</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="openDeviceButton" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>OpenDevice</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="transceiveButton" >
+     <property name="geometry" >
+      <rect>
+       <x>130</x>
+       <y>150</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>Transceive</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="setDeviceParaButton" >
+     <property name="enabled" >
+      <bool>true</bool>
+     </property>
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>111</width>
+       <height>33</height>
+      </rect>
+     </property>
+     <property name="font" >
+      <font>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="text" >
+      <string>SetDevicePara</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="exitButton" >
+    <property name="geometry" >
+     <rect>
+      <x>710</x>
+      <y>210</y>
+      <width>111</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>Exit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="versionButton" >
+    <property name="geometry" >
+     <rect>
+      <x>590</x>
+      <y>210</y>
+      <width>111</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>FEUSB Version</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>250</y>
+      <width>831</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="title" >
+     <string>Return Status</string>
+    </property>
+    <widget class="QLineEdit" name="returnStatuslineEdit" >
+     <property name="geometry" >
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>811</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>exitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FEUSBDemoDlg</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>725</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>397</x>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

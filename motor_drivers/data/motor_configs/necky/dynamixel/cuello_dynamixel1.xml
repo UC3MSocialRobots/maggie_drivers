@@ -1,0 +1,22 @@
+
+<?xml version="1.0"?>
+<driver>
+	<driverName>dynamixelDriver</driverName>
+	<driverID>1</driverID>
+	<driverType>dynamixel</driverType>
+	<portName>/dev/cuello</portName>
+	<deviceID>1</deviceID>
+	<dynamixel>
+		<maxPos>819</maxPos>
+		<minPos>200</minPos>
+		<maxVel>600</maxVel>
+		<calibrationSensorPosition>512</calibrationSensorPosition>
+		<minVolt>7</minVolt>
+		<maxVolt>12.1</maxVolt>
+		<minTemp>-5</minTemp>
+		<maxTemp>85</maxTemp>
+		<encPulsesPerRev>1228</encPulsesPerRev>
+		<driverMultipFactor>1</driverMultipFactor>
+		<reductionFactor>1</reductionFactor>
+	</dynamixel>
+</driver>

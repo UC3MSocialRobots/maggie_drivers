@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<package>
+    <name>maggie_drivers</name>
+    <version>1.0.0</version>
+    <description>
+        maggie_drivers metapackage
+    </description>
+
+    <!-- Author tags are optional, multiple are allowed, one per tag -->
+    <!-- Authors do not have to be maintianers, but could be -->
+    <author email="raul.perula@uc3m.es">Raul Perula-Martinez</author>
+
+
+    <!-- One maintainer tag required, multiple allowed, one person per tag -->
+    <maintainer email="raul.perula@uc3m.es">Raul Perula-Martinez</maintainer>
+
+
+    <!-- One license tag required, multiple allowed, one license per tag -->
+    <license>LEUC3M v1.0</license>
+
+
+    <!-- Url tags are optional, but mutiple are allowed, one per tag -->
+    <url type="website">http://wiki.ros.org/maggie_drivers</url>
+    <url type="bugtracker">https://github.com/UC3MSocialRobots/maggie_drivers/issues</url>
+    <url type="repository">https://github.com/UC3MSocialRobots/maggie_drivers.git</url>
+
+
+    <!-- The *_depend tags are used to specify dependencies -->
+    <!-- Dependencies can be catkin packages or system dependencies -->
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <run_depend>ir_drivers</run_depend>
+    <run_depend>labjack_drivers</run_depend>
+    <run_depend>motor_drivers</run_depend>
+    <run_depend>rfid_drivers</run_depend>
+    <run_depend>serial_comm_drivers</run_depend>
+
+
+    <!-- The export tag contains other, unspecified, tags -->
+    <export>
+        <!-- You can specify that this package is a metapackage here: -->
+        <metapackage/>
+    </export>
+</package>

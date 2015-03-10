@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+
+    <driver>
+
+        <driverName>leftWheels</driverName>
+        <driverID>97</driverID>
+	<driverBaud>500K</driverBaud>
+        <driverType>CANOpen</driverType>
+
+        <mcdc3006c>
+
+		<!-- Parmameters of the class mcdc3006_canopen_configuration  -->
+
+                 <maxPos>15000</maxPos> 
+                 <minPos>-15000</minPos>
+                 <maxVel>10000</maxVel>
+                 <calibrationSensorPosition>512</calibrationSensorPosition>
+                 <minVolt>7</minVolt>
+                 <maxVolt>12.1</maxVolt>
+                 <minTemp>-5</minTemp>
+                 <maxTemp>85</maxTemp>
+		 <continousCurrentLimit>200</continousCurrentLimit>  <!-- mA -->
+	         <peakCurrentLimit>10000</peakCurrentLimit> <!-- mA -->
+		 <maxAcceleration>1000</maxAcceleration>
+		 <maxDecceleration>1000</maxDecceleration>
+		 <polarity>positive</polarity>
+                 <positionEncoderResolution>500</positionEncoderResolution>
+		 <quickStopDeceleration>30000</quickStopDeceleration>
+
+		<!-- Factor=dividendFactor/divisorFactor  -->
+
+		 <dividendPositionFactor>1</dividendPositionFactor>
+		 <divisorPositionFactor>1</divisorPositionFactor>
+		 <dividendVelocityFactor>1</dividendVelocityFactor>
+		 <divisorVelocityFactor>1</divisorVelocityFactor>
+		 <dividendAccelerationFactor>1</dividendAccelerationFactor>
+		 <divisorAccelerationFactor>1</divisorAccelerationFactor>
+
+		<!-- Parmameters of the class mcdc3006_canopen_params  -->
+		<!-- These Parmameters are used for sending PDO and request PDO  -->
+
+		 <numberPDO1>1</numPD1>	       <!-- Number of PDO1 inside ObjectDictionary -->
+		 <indexRPDO1>5121</indexRPDO1> <!-- RPDO1 0x1400 = 5120d -->
+		 <numberPDO2>5</numPD2>
+		 <indexRPDO2>5125</indexRPDO2> <!-- RPDO1 0x1405 = 5125d -->
+		 <numberPDO3>3</numberPDO3>
+		 <indexRPDO3>5123</indexRPDO3> <!-- RPDO1 0x1402 = 5122d -->
+
+        </mcdc3006c>
+
+   </driver>
+

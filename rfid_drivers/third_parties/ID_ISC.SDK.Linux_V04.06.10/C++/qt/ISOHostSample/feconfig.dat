@@ -1,0 +1,13 @@
+Baud 38400
+BusAddress 255
+CharTimeoutMpy 1
+ComPortNumber 1
+CommMode 0
+Dtr 0
+Frame 8E1
+Host 0.0.0.0
+IpPort 0
+Rts 0
+Timeout 2000
+TxDelayTime 5
+TxTimeControl 1

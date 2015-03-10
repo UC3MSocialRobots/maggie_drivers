@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actuator>
+	<actuatorName>ActuatorTest-RightArm</actuatorName>
+	<actuatorID>1</actuatorID>
+	<actuatorParameters>
+		<limits>
+			<maxPos>2.045307715</maxPos>
+			<minPos>-0.7669904</minPos>
+			<maxVel>60</maxVel>
+			<maxAcc>12566.2706</maxAcc>
+			<maxDec>12566.2706</maxDec>
+			<contCurrent>800</contCurrent>
+			<peakCurrent>1200</peakCurrent>
+		</limits>
+		<calibration>
+			<calibrationSensorPosition>1.718621</calibrationSensorPosition>
+			<calibrationCurrentLimit>800</calibrationCurrentLimit>
+			<calibrationSpeed>30</calibrationSpeed>
+			<calibrationTimeOut>10000</calibrationTimeOut>
+		</calibration>
+		<driver>
+			<driverName>DriverExample</driverName>
+			<driverID>1</driverID>
+			<driverType>MCDC3006S</driverType>
+			<driverConfigFile>dCV.xml</driverConfigFile>
+		</driver>
+	</actuatorParameters>
+</actuator>

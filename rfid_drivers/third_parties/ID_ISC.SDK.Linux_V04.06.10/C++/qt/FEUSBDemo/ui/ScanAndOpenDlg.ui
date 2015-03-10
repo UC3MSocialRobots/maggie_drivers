@@ -1,0 +1,218 @@
+<ui version="4.0" >
+ <class>ScanAndOpenDlg</class>
+ <widget class="QDialog" name="ScanAndOpenDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>275</width>
+    <height>289</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_2" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>271</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Scan Option</string>
+   </property>
+   <widget class="QComboBox" name="scanOptionComboBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>251</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="currentIndex" >
+     <number>0</number>
+    </property>
+    <item>
+     <property name="text" >
+      <string>FEUSB_SCAN_FIRST</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>FEUSB_SCAN_NEXT</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>FEUSB_SCAN_NEW</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>FEUSB_SCAN_ALL</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QCheckBox" name="scanPackCheckBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>241</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>FEUSB_SCAN_PACK</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>100</y>
+     <width>271</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Search Option</string>
+   </property>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>67</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>DeviceID</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>67</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>FamilyName</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="deviceIDLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>90</x>
+      <y>20</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="familyIDLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>90</x>
+      <y>60</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>67</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>DeviceName</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="productIDLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>90</x>
+      <y>100</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="scanAndOpenButton" >
+   <property name="geometry" >
+    <rect>
+     <x>20</x>
+     <y>250</y>
+     <width>111</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Ok</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancelButton" >
+   <property name="geometry" >
+    <rect>
+     <x>150</x>
+     <y>250</y>
+     <width>111</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Cancel</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>scanAndOpenButton</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>ScanAndOpenDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>320</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ScanAndOpenDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>320</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

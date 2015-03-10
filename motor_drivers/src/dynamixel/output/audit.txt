@@ -1,0 +1,15 @@
+Foremost version 1.5.7 by Jesse Kornblum, Kris Kendall, and Nick Mikus
+Audit File
+
+Foremost started at Mon Nov 15 15:47:47 2010
+Invocation: foremost -v -d -tall -i. 
+Output directory: /home/redhome/pandrea/Escritorio/TesisMasterPaulina/robot/src/devices/drivers/Dynamixel/output
+Configuration file: /etc/foremost.conf
+------------------------------------------------------------------
+File: stdin
+Start: Mon Nov 15 15:47:47 2010
+Length: Unknown
+ 
+Num	 Name (bs=512)	       Size	 File Offset	 Comment 
+
+Interrupt received at Mon Nov 15 15:56:21 2010

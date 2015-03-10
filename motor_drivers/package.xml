@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>motor_drivers</name>
+    <version>1.0.0</version>
+    <description>
+        motor drivers
+    </description>
+
+    <!-- Author tags are optional, multiple are allowed, one per tag -->
+    <!-- Authors do not have to be maintianers, but could be -->
+    <author email="raul.perula@uc3m.es">Raul Perula-Martinez</author>
+
+
+    <!-- One maintainer tag required, multiple allowed, one person per tag -->
+    <maintainer email="raul.perula@uc3m.es">Raul Perula-Martinez</maintainer>
+
+
+    <!-- One license tag required, multiple allowed, one license per tag -->
+    <license>LEUC3M v1.0</license>
+
+
+    <!-- Url tags are optional, but mutiple are allowed, one per tag -->
+    <url type="website">http://wiki.ros.org/maggie_drivers</url>
+    <url type="bugtracker">https://github.com/UC3MSocialRobots/maggie_drivers/issues</url>
+    <url type="repository">https://github.com/UC3MSocialRobots/maggie_drivers.git</url>
+
+
+    <!-- The *_depend tags are used to specify dependencies -->
+    <!-- Dependencies can be catkin packages or system dependencies -->
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <!-- ROS packages dependencies -->
+    <build_depend>roscpp</build_depend>
+    <exec_depend>roscpp</exec_depend>
+
+    <!-- AD packages dependencies -->
+    <depend>ad_core</depend>
+
+
+    <!-- The export tag contains other, unspecified, tags -->
+    <export>
+        <!-- Set the include and linker folders -->
+        <cpp cflags="-I${prefix} -I${prefix}/build -Wall" lflags="-L${prefix}/lib -Wl,-rpath,${prefix}/lib" />
+    </export>
+</package>

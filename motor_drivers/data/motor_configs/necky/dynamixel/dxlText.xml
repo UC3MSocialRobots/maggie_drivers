@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<driver>
+	<driverName>dynamixelDriver</driverName>
+	<driverID>1</driverID>
+	<driverType>dynamixel</driverType>
+	<portName>/dev/ojo</portName>
+	<deviceID>5</deviceID>
+	<dynamixel>
+		<maxPos>600</maxPos>
+		<minPos>450</minPos>
+		<maxVel>20</maxVel>
+		<calibrationSensorPosition>512</calibrationSensorPosition>
+		<minVolt>7</minVolt>
+		<maxVolt>12.1</maxVolt>
+		<minTemp>-5</minTemp>
+		<maxTemp>85</maxTemp>
+	</dynamixel>
+</driver>

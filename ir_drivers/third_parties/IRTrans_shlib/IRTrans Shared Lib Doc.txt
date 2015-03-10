@@ -1,0 +1,420 @@
+Documentation for the IRTrans Shared Library
+
+
+The IRTrans Shared Library allows to control IRTrans devices through own programms.
+
+The Shared Lib is available for Windows (IRTransDLL.dll) and LINUX (libIRTrans.so).
+
+
+
+Needed Header Files
+
+IRTrans.h
+remote.h
+network.h
+errcode.h
+
+
+Theory of operation
+
+The IRTrans system is always controlled using a TCP/IP based server software (irserver).
+The Shared LIB connects to this server via port TCP/21000 and allows to control the
+IRTrans system. In addition some of the functions are also available directly when
+connected to an IRTrans LAN device with integrated IRDB.
+Once connected the client programm can operate the IRTrans device(s).
+
+
+Calls
+
+**************************************************************
+
+General / Control
+
+**************************************************************
+
+
+int ConnectIRTransServer (char host[],SOCKET *sock)
+
+Connect to an IRTrans server. This is the first step needed
+to establish communication with the IRTrans system.
+The IP / hostname can also refer to an IRTrans Ethernet module.
+Of course multiple connections are supported.
+
+Supported
+
+irserver		>= 5.1.1
+LAN DB modules	all versions
+
+
+Parameters
+
+char host[]
+
+Hostname or IP Address where the server is running.
+This can be localhost for a server running on the same system or
+the IP / hostname of a remote server.
+
+
+SOCKET *sock
+
+Pointer to a SOCKET where the handle for the connection is stored.
+
+
+Result
+
+0		Call succeeded
+!= 0	Error Code returend (Definitions in errcode.h)
+
+
+--------------------------------------------------------------
+
+
+void DisconnectIRTransServer (SOCKET serv)
+
+Closes the connection with the irserver
+
+Supported
+
+irserver		all versions
+LAN DB modules	all versions
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+
+--------------------------------------------------------------
+
+
+NETWORKSTATUS *ReloadIRDatabase (SOCKET serv)
+
+Reloads the IR Database files. Only needed when the files
+are changed manually. When learning codes through the server
+the correct status is always maintained by the irserver.
+
+Supported
+
+irserver		>= 5.1.1
+LAN DB modules	not supported / needed
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+
+
+
+
+**************************************************************
+
+Sending IR
+
+**************************************************************
+
+
+NETWORKSTATUS *SendRemoteCommand (SOCKET serv, char rem[],char com[],int mask,int LEDSel,int bus)
+
+Send an IR Code
+
+Supported
+
+irserver		>= 5.1.1
+LAN DB modules	all versions
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+char rem[]
+
+Name of the remote control
+
+char com[]
+
+Name of the IR Command
+
+int mask
+
+Address mask for the IRTrans serial Bus. Contains a 16 Bit bit mask for up to 16 devices.
+0xffff -> Send to all devices on the Bus
+
+int LEDSel
+
+Select the LEDs used to send.
+
+Values:
+0	Default (as set in devices EEPROM)
+1	Internal LEDs
+2	External LEDs
+3	All LEDs
+
+int bus
+
+Select the LAN / USB / RS232 device connected to the server. 0 = first device, 1 = 2nd and so on.
+255 selects all busses / devices.
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+
+
+--------------------------------------------------------------
+
+
+NETWORKSTATUS *SendRemoteCommandEx (SOCKET serv,char rem[],char com[],word mask,byte LEDSel,byte bus)
+
+Send an IR Code. Extended external LED selection.
+
+
+Supported
+
+irserver		>= 5.1.1
+LAN DB modules	all versions
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+char rem[]
+
+Name of the remote control
+
+char com[]
+
+Name of the IR Command
+
+int mask
+
+Address mask for the IRTrans serial Bus. Contains a 16 Bit bit mask for up to 16 devices.
+0xffff -> Send to all devices on the Bus
+
+byte LEDSel
+
+Select the LEDs used to send.
+
+Values:
+
+0 or d		Default (as set in devices EEPROM)
+i			Internal LEDs
+e			External LEDs
+b or a		All LEDs
+1 to 8		External LEDs of LAN Controller / LAN Controller XL
+
+int bus
+
+Select the LAN / USB / RS232 device connected to the server. 0 = first device, 1 = 2nd and so on.
+255 selects all busses / devices.
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+
+
+--------------------------------------------------------------
+
+
+NETWORKSTATUS *SendCCFCommand (SOCKET serv,char ccfstr[],byte repeat,word mask,byte LEDSel,byte bus)
+
+
+Send an IR Code defined by a CCF/Philips Pronto Hex Code. Extended external LED selection.
+
+
+Supported
+
+irserver		>= 5.1.1
+LAN DB modules	all versions
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+char ccfstr[]
+
+Text string with the CCF Hex Code (Format like: "0000 007D 0013 0044 ....".
+Max. Length of the String: 256 Hex words
+
+
+int mask
+
+Address mask for the IRTrans serial Bus. Contains a 16 Bit bit mask for up to 16 devices.
+0xffff -> Send to all devices on the Bus
+
+byte LEDSel
+
+Select the LEDs used to send.
+
+Values:
+
+0 or d		Default (as set in devices EEPROM)
+i			Internal LEDs
+e			External LEDs
+b or a		All LEDs
+1 to 8		External LEDs of LAN Controller / LAN Controller XL
+
+int bus
+
+Select the LAN / USB / RS232 device connected to the server. 0 = first device, 1 = 2nd and so on.
+255 selects all busses / devices.
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+
+
+--------------------------------------------------------------
+
+
+NETWORKSTATUS *SendCCFCommandLong (SOCKET serv,char ccfstr[],byte repeat,word mask,byte LEDSel,byte bus)
+
+
+Send an IR Code defined by a CCF/Philips Pronto Hex Code. Support for long CCF Codes.
+Extended external LED selection.
+
+
+Supported
+
+irserver		>= 5.8.5
+LAN DB modules	Ethernet version >= 1.05.10
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+char ccfstr[]
+
+Text string with the CCF Hex Code (Format like: "0000 007D 0013 0044 ....".
+Max. Length of the String: 450 Hex words
+
+
+int mask
+
+Address mask for the IRTrans serial Bus. Contains a 16 Bit bit mask for up to 16 devices.
+0xffff -> Send to all devices on the Bus
+
+byte LEDSel
+
+Select the LEDs used to send.
+
+Values:
+
+0 or d		Default (as set in devices EEPROM)
+i			Internal LEDs
+e			External LEDs
+b or a		All LEDs
+1 to 8		External LEDs of LAN Controller / LAN Controller XL
+
+int bus
+
+Select the LAN / USB / RS232 device connected to the server. 0 = first device, 1 = 2nd and so on.
+255 selects all busses / devices.
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+
+
+**************************************************************
+
+Learning IR
+
+**************************************************************
+
+
+NETWORKSTATUS *LearnIRCode (SOCKET serv, char rem[],char com[],unsigned short timeout)
+
+
+Learn an IR Code
+
+Supported
+
+irserver		all versions
+LAN DB modules	Learning of codes is only supported through the irserver
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+char rem[]
+
+Name of the remote control
+
+char com[]
+
+Name of the IR Command
+
+unsigned short timeout
+
+Time to wait for the IR Code
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+
+
+--------------------------------------------------------------
+
+
+NETWORKSTATUS *LearnRepeatIRCode (SOCKET serv, char rem[],char com[],unsigned short timeout)
+
+Learn a repeat IR Code (Code that is sent when the button is held down)
+
+Supported
+
+irserver		all versions
+LAN DB modules	Learning of codes is only supported through the irserver
+
+
+Parameters
+
+SOCKET serv
+
+Connection handle for the irserver connection
+
+char rem[]
+
+Name of the remote control
+
+char com[]
+
+Name of the IR Command
+
+unsigned short timeout
+
+Time to wait for the IR Code
+
+Result
+
+0		Call succeeded / no Error
+!= 0	NETWORKSTATUS structure describing the Error
+

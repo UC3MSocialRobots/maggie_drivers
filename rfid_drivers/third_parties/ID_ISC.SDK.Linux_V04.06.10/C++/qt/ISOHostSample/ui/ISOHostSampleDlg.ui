@@ -1,0 +1,310 @@
+<ui version="4.0" >
+ <author>Benjamin Stadin, FEIG ELECTRONIC GmbH</author>
+ <class>ISOHostSampleDlg</class>
+ <widget class="QMainWindow" name="ISOHostSampleDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>866</width>
+    <height>579</height>
+   </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy>
+    <hsizetype>0</hsizetype>
+    <vsizetype>0</vsizetype>
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle" >
+   <string>FEIG ELECTRONIC GmbH - ISO Host Sample</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <widget class="QWidget" name="gridLayout" >
+    <property name="geometry" >
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>761</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item row="0" column="0" >
+      <widget class="QGroupBox" name="hexDataGroupBox" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>3</hsizetype>
+         <vsizetype>5</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title" >
+        <string>Hex data</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="2" >
+      <widget class="QGroupBox" name="protocolGroupBox" >
+       <property name="title" >
+        <string>Protocol window</string>
+       </property>
+       <widget class="QTextEdit" name="protocolTextEdit" >
+        <property name="geometry" >
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>741</width>
+          <height>201</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item row="0" column="1" >
+      <widget class="QGroupBox" name="tagListGroupBox" >
+       <property name="sizePolicy" >
+        <sizepolicy>
+         <hsizetype>3</hsizetype>
+         <vsizetype>5</vsizetype>
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title" >
+        <string>Tag list</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="2" >
+      <widget class="QLineEdit" name="statusLineEdit" />
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="clearProtPushButton" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>480</y>
+      <width>90</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Clear prot.</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="startPushButton" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>10</y>
+      <width>90</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clearListPushButton" >
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>50</y>
+      <width>90</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Clear list</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3" >
+    <property name="geometry" >
+     <rect>
+      <x>780</x>
+      <y>320</y>
+      <width>48</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>DB-Size</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="dbnLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>790</x>
+      <y>280</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>4</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2" >
+    <property name="geometry" >
+     <rect>
+      <x>780</x>
+      <y>260</y>
+      <width>81</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:8pt; font-weight:400; font-style:normal; text-decoration:none;">
+&lt;p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">No. of blocks&lt;/p>&lt;/body>&lt;/html></string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="dbAdrLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>790</x>
+      <y>220</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label" >
+    <property name="geometry" >
+     <rect>
+      <x>780</x>
+      <y>200</y>
+      <width>42</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font" >
+     <font>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text" >
+     <string>DB-Adr</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="readTagPushButton" >
+    <property name="enabled" >
+     <bool>false</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>110</y>
+      <width>90</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Read tag</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="writeTagPushButton" >
+    <property name="enabled" >
+     <bool>false</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>770</x>
+      <y>160</y>
+      <width>90</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>Write tag</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="dbSizeLineEdit" >
+    <property name="enabled" >
+     <bool>false</bool>
+    </property>
+    <property name="geometry" >
+     <rect>
+      <x>790</x>
+      <y>340</y>
+      <width>41</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text" >
+     <string>2</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>866</width>
+     <height>35</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionFind_reader" >
+   <property name="text" >
+    <string>Find reader</string>
+   </property>
+  </action>
+  <action name="actionAbout" >
+   <property name="text" >
+    <string>About</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>ISOHostSampleDlg</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -1,0 +1,141 @@
+<ui version="4.0" >
+ <class>GetDeviceParaDlg</class>
+ <widget class="QDialog" name="GetDeviceParaDlg" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>377</width>
+    <height>166</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="cancelPushButton" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>50</y>
+     <width>131</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>90</y>
+     <width>371</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>ParameterID</string>
+   </property>
+   <widget class="QComboBox" name="parameterIDComboBox" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>351</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="currentIndex" >
+     <number>0</number>
+    </property>
+    <item>
+     <property name="text" >
+      <string>Device-ID</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>FamilyName</string>
+     </property>
+    </item>
+    <item>
+     <property name="text" >
+      <string>DeviceName</string>
+     </property>
+    </item>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>231</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title" >
+    <string>Device Handle</string>
+   </property>
+   <widget class="QLineEdit" name="deviceHandleLineEdit" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>113</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="getDeviceParaPushButton" >
+   <property name="geometry" >
+    <rect>
+     <x>240</x>
+     <y>10</y>
+     <width>131</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="text" >
+    <string>GetDevicePara</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>getDeviceParaPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GetDeviceParaDlg</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>334</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cancelPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>GetDeviceParaDlg</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>334</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

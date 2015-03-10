@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+ <driver>
+	<driverName>brazoDerechoExampleDriver</driverName>
+	<driverID>0</driverID>
+	<driverType>MCDC3006S</driverType>
+        <mcdc3006s>
+		<maxPos>100000</maxPos>
+		<minPos>-100000</minPos>
+		<maxVel>1000</maxVel>
+		<maxAcc>200</maxAcc>
+		<maxDec>200</maxDec>
+		<contCurrent>800</contCurrent>
+		<peakCurrent>1200</peakCurrent>
+		<calibrationSensorPosition>0</calibrationSensorPosition>
+		<calibrationCurrentLimit>1200</calibrationCurrentLimit>
+		<calibrationSpeed>500</calibrationSpeed>
+		<calibrationTimeOut>5000</calibrationTimeOut>
+		<encPulsesPerRev>512</encPulsesPerRev>
+		<driverMultipFactor>4</driverMultipFactor>
+		<reductionFactor>24</reductionFactor>
+		<rs232>
+			<serialDevice>/dev/brazo_derecho</serialDevice>
+			<baudRate>19200</baudRate>
+		</rs232>
+		<semaphore>
+			<semFile>semDrive</semFile>
+		</semaphore>
+        </mcdc3006s>
+</driver>
+
