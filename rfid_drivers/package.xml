@@ -35,7 +35,7 @@
 
     <!-- tests dependencies -->
     <test_depend>gtest</test_depend>
-    <test_depend>gmock</test_depend>
+    <test_depend>google-mock</test_depend>
 
 
     <!-- The export tag contains other, unspecified, tags -->
