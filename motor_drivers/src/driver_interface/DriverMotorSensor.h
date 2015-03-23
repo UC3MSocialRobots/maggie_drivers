@@ -1,3 +1,6 @@
+#ifndef DRIVERMOTORSENSOR_H_
+#define DRIVERMOTORSENSOR_H_
+
 /**
  * \file DriverMotorSensor.h
  *
@@ -5,36 +8,67 @@
  * \author Victor Gonzalez Pacheco mailto: vgonzale@ing.uc3m.es
  */
 
-#ifndef DRIVERMOTORSENSOR_H_
-#define DRIVERMOTORSENSOR_H_
-
-/*
- * Class that contains the motor's sensor information of an actuator.
- * It also provides the appropriate access functions (getters and setters).
- */
 class DriverMotorSensor {
-	friend class DriverInterface;
-//	friend class actuator::Actuator;
-public:
-	DriverMotorSensor();
-	virtual ~DriverMotorSensor();
+        friend class DriverInterface;
 
-	// Access Functions.
-	virtual long int getPosition() const;
-	virtual long int getVelocity() const;
-	virtual int getInstantCurrent() const;
+    public:
+        /**
+         * @brief Empty constructor.
+         */
+        DriverMotorSensor();
 
-	void setInstantCurrent(int instantCurrent);
-	void setPosition(long int position);
-	void setVelocity(long int velocity);
+        /**
+         * @brief Destructor.
+         */
+        virtual ~DriverMotorSensor();
 
-protected:
-	/** Current position of the motor. It's in pulses. **/
-	long int position;
-	/** Current velocity of the motor. It's in rpms **/
-	long int velocity;
-	/** Current Instantaneous current of the motor. It's in mA (milli Amperes). **/
-	int instantCurrent;
+        // Access Functions
+
+        /**
+         * @brief returns the position
+         * @return DriverMotorSensor::position the last stored motorSensor position. Units: pulses
+         */
+        virtual long int getPosition() const;
+
+        /**
+         * @brief returns the velocity
+         * @return DriverMotorSensor::velocity the last stored motorSensor velocity. Units: rpm (revolutions per minute)
+         */
+        virtual long int getVelocity() const;
+
+        /**
+         * @brief returns the instant current
+         * @return DriverMotorSensor::instantCurrent the last stored motorSensor instant current. Units: milli amperes (mA)
+         */
+        virtual int getInstantCurrent() const;
+
+        /**
+         * @brief sets the instant current in the motorSensor data
+         * @param DriverMotorSensor::instantCurrent sets the instant current in the motorSensor data. Units: milli amperes (mA)
+         */
+        void setInstantCurrent(int instantCurrent);
+
+        /**
+         * @brief sets the position in the motorSensor data
+         * @param DriverMotorSensor::position sets the position in the motorSensor data. Units: pulses
+         */
+        void setPosition(long int position);
+
+        /**
+         * @brief sets the velocity in the motorSensor data
+         * @param DriverMotorSensor::velocity sets the velocity in the motorSensor data. Units: rpm (revolutions per minute)
+         */
+        void setVelocity(long int velocity);
+
+    protected:
+        /** Current position of the motor. It's in pulses. **/
+        long int position;
+
+        /** Current velocity of the motor. It's in rpms **/
+        long int velocity;
+
+        /** Current Instantaneous current of the motor. It's in mA (milli Amperes). **/
+        int instantCurrent;
 };
 
-#endif /* DRIVERMOTORSENSOR_H_ */
+#endif
