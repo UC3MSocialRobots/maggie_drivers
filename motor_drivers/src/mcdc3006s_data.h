@@ -1,8 +1,8 @@
-#ifndef MCD3006S_DATA_H
-#define MCD3006S_DATA_H
+#ifndef __MCD3006S_DATA_H__
+#define __MCD3006S_DATA_H__
 
 /**
- * @file        MCD3006S_data.h
+ * @file        mcdc3006s_data.h
  * @brief       Data for motors.
  *
  * @author      Raul Perula-Martinez <raul.perula@uc3m.es>
@@ -53,9 +53,6 @@
  * @brief Structure where the configuration of the driver is stored
  */
 typedef struct driverConf {
-        int RSd; /**< Serial Port File descriptor */
-        semaphore_t sem; /**< Semaphore related data */
-
         long int maxPos; /**< Driver maximum position (in pulses) */
         long int minPos; /**< Driver minimum position (in pulses) */
         long int maxVel; /**< Driver maximum velocity (in r.p.m) */
