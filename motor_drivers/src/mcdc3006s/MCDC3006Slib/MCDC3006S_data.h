@@ -2,18 +2,34 @@
 #define MCD3006S_DATA_H
 
 /**
- * @file MCD3006S_data.h
- * @author Raúl Pérula (mailto:rperula@ing.uc3m.es)
- * @date 2014-10
+ * @file        MCD3006S_data.h
+ * @brief       Data for motors.
+ *
+ * @author      Raul Perula-Martinez <raul.perula@uc3m.es>
+ * @date        2015-03
+ *
+ * @copyright   Copyright (C) 2015 University Carlos III of Madrid.
+ *              All rights reserved.
+ * @license     LEUC3M v1.0, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the Licencia Educativa UC3M as published by
+ * the University Carlos III of Madrid, either version 1.0, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY. See the Licencia Educativa UC3M
+ * version 1.0 or any later version for more details.
+ *
+ * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
 /**
  * \todo This two defines must be moved to a primitive level
  */
-
-//#define MCDC3006S_PULSES_PER_REV 2048         /// Warning
+//#define MCDC3006S_PULSES_PER_REV 2048     // Warning
 //#define MCDC3006S_REDUCTION_FACTOR 123000 /* motorValue = FACTOR * dofValue */
-#define CALIBRATION_TIMEOUT 5000            /**< Calibration timeout in milliseconds */
+#define CALIBRATION_TIMEOUT 5000           /**< Calibration timeout in milliseconds */
 
 #define ACTIVATE 1
 #define DEACTIVATE 0
@@ -33,10 +49,8 @@
 #define OVERTEMPERATURE_MASK    128         /**< Mask used to check if the overtemperature is active. Masks the bit 7 of the OST command response*/
 #define DRIVER_INPUT_4_MASK     2048        /**< Mask used to check if the input 4 of the driver is active. I have this input connected to the limit sensor.
                                                                                                         Masks the bit 11 of the OST command response */
-
 /**
  * @brief Structure where the configuration of the driver is stored
- *
  */
 typedef struct driverConf {
         int RSd; /**< Serial Port File descriptor */
@@ -61,7 +75,6 @@ typedef struct driverMotorSensor {
 
 /**
  * @brief Structure where the status of the driver is stored
- *
  */
 typedef struct driverStatus {
         int disabled; /**< Stores if the driver is disabled or not TRUE = enabled; FALSE = disabled */
@@ -72,4 +85,3 @@ typedef struct driverStatus {
 } driverStatus_t;
 
 #endif
-

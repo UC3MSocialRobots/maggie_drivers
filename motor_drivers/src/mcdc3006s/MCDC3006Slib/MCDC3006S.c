@@ -1,8 +1,26 @@
 /**
- * @file driverMCD3006S.c
- * @brief Software implementation of the Aplication Program Interface for the drive model faulhaberMCDC3006S
- * @author Víctor Gonzalez vgonzale@ing.uc3m.es
- * @date 22 January 2009
+ * @file        MCD3006S.c
+ * @brief       Software implementation of the Aplication Program Interface for the drive model faulhaberMCDC3006S.
+ *
+ * @author      Raul Perula-Martinez <raul.perula@uc3m.es>
+ * @date        2015-03
+ * @author      Victor Gonzalez <vgonzale@ing.uc3m.es>
+ * @date        2010-01
+ *
+ * @copyright   Copyright (C) 2015 University Carlos III of Madrid.
+ *              All rights reserved.
+ * @license     LEUC3M v1.0, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the Licencia Educativa UC3M as published by
+ * the University Carlos III of Madrid, either version 1.0, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY. See the Licencia Educativa UC3M
+ * version 1.0 or any later version for more details.
+ *
+ * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
 #include "mcdc3006s/MCDC3006Slib/MCDC3006S.h"
@@ -162,7 +180,6 @@ int setDriverMinPos(int RSd, int semID, long int minPos)
 
 int setDriverMaxVel(int RSd, int semID, long int maxVel)
 {
-
     char command[SP_MSG_SIZE];
 
     sprintf(command, "SP%ld\n\r\0", maxVel);
@@ -173,7 +190,6 @@ int setDriverMaxVel(int RSd, int semID, long int maxVel)
     }
 
     return ERR_NOERR;
-
 }
 
 int setDriverMaxAcc(int RSd, int semID, long int maxAcc)
@@ -188,7 +204,6 @@ int setDriverMaxAcc(int RSd, int semID, long int maxAcc)
     }
 
     return ERR_NOERR;
-
 }
 
 int setDriverMaxDec(int RSd, int semID, long int maxDec)
@@ -203,7 +218,6 @@ int setDriverMaxDec(int RSd, int semID, long int maxDec)
     }
 
     return ERR_NOERR;
-
 }
 
 int setDriverCurLim(int RSd, int semID, int cl)
@@ -236,7 +250,6 @@ int setDriverPCurLim(int RSd, int semID, int pcl)
 
 long int getDriverMaxVel(int RSd, int semID)
 {
-//	long int vmax;
     char command[SP_MSG_SIZE]; // "GSP\n\r\0";
     char response[SP_MSG_SIZE];
 
@@ -247,8 +260,8 @@ long int getDriverMaxVel(int RSd, int semID)
         return ERR_COM;
     }
 
-    return (atol(response)); // Converting the response of the driver to a long int.
-
+    // Converting the response of the driver to a long int.
+    return (atol(response));
 }
 
 long int getDriverMaxAcc(int RSd, int semID)
@@ -263,12 +276,12 @@ long int getDriverMaxAcc(int RSd, int semID)
         return ERR_COM;
     }
 
-    return (atol(response)); // Converting the response of the driver to a long int.
+    // Converting the response of the driver to a long int.
+    return (atol(response));
 }
 
 long int getDriverMaxDec(int RSd, int semID)
 {
-
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
 
@@ -279,12 +292,12 @@ long int getDriverMaxDec(int RSd, int semID)
         return ERR_COM;
     }
 
-    return (atol(response)); // Converting the response of the driver to a long int.
+    // Converting the response of the driver to a long int.
+    return (atol(response));
 }
 
 long int getDriverMaxPos(int RSd, int semID)
 {
-
     char command[SP_MSG_SIZE], response[SP_MSG_SIZE];
 
     sprintf(command, "GPL\r");
@@ -294,7 +307,8 @@ long int getDriverMaxPos(int RSd, int semID)
         return ERR_COM;
     }
 
-    return atol(response); // Converting the response of the driver to a long int.
+    // Converting the response of the driver to a long int.
+    return atol(response);
 }
 
 long int getDriverMinPos(int RSd, int semID)
@@ -417,6 +431,7 @@ int getDriverInstantPos(int RSd, int semID, long int * position)
         return (ERR_COM);
     }
     *position = atol(response);
+
     return ERR_NOERR;
 }
 
@@ -433,6 +448,7 @@ int getDriverInstantVel(int RSd, int semID, long int * velocity)
         return (ERR_COM);
     }
     *velocity = atol(response);
+
     return (ERR_NOERR);
 }
 
@@ -449,6 +465,7 @@ int getDriverInstantCurrent(int RSd, int semID, int * current)
         return (ERR_COM);
     }
     *current = atol(response);
+
     return (ERR_NOERR);
 }
 
@@ -468,6 +485,7 @@ int moveDriverAbsPos(int RSd, int semID, long int p)
         perror("moveDriverAbsPos() --> Error writing to the driver\n\r");
         return ERR_WRI;
     }
+
     return ERR_NOERR;
 }
 
@@ -487,6 +505,7 @@ int moveDriverRelPos(int RSd, int semID, long int p)
         perror("moveDriverRelPos() --> Error writing to the driver\n\r");
         return ERR_WRI;
     }
+
     return ERR_NOERR;
 }
 
@@ -499,8 +518,8 @@ int moveDriverVel(int RSd, int semID, long int v)
         perror("moveDriverVel() --> Error writing to the driver\n\r");
         return ERR_WRI;
     }
-    return ERR_NOERR;
 
+    return ERR_NOERR;
 }
 
 int enableDriver(int RSd, int semID)
@@ -511,6 +530,7 @@ int enableDriver(int RSd, int semID)
         perror("EnableDriver() --> Error\n\r");
         return ERR_WRI;
     }
+
     return ERR_NOERR;
 }
 
@@ -522,6 +542,7 @@ int disableDriver(int RSd, int semID)
         perror("DisableDriver() --> Error\n\r");
         return ERR_WRI;
     }
+
     return ERR_NOERR;
 }
 
@@ -599,12 +620,12 @@ int calibrateDriver(int RSd, int semID, long int limit, int currentLimit, int ca
             status = ERR_NOHOME;
         }
     }
+
     return (status);
 }
 
 int getDriverStatus(int RSd, int semID, driverStatus_t * drvStatus)
 {
-
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
 

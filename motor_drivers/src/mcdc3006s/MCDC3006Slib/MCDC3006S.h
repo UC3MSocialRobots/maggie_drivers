@@ -2,21 +2,40 @@
 #define MCD3006S_H
 
 /**
- * @file MCD3006S.h
- * @author Víctor González (mailto:vgonzale@ing.uc3m.es)
- * @date 22 of January of 2010
+ * @file        MCD3006S.h
+ * @brief       Software implementation of the Application Program Interface for the drive model faulhaberMCDC3006S.
+ *
+ * @author      Raul Perula-Martinez <raul.perula@uc3m.es>
+ * @date        2015-03
+ * @author      Victor Gonzalez <vgonzale@ing.uc3m.es>
+ * @date        2010-01
+ *
+ * @copyright   Copyright (C) 2015 University Carlos III of Madrid.
+ *              All rights reserved.
+ * @license     LEUC3M v1.0, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the Licencia Educativa UC3M as published by
+ * the University Carlos III of Madrid, either version 1.0, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY. See the Licencia Educativa UC3M
+ * version 1.0 or any later version for more details.
+ *
+ * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <fcntl.h>      	// Modos de apertura de dispositivos
-#include <termios.h>   // struct termios
-#include <stdio.h>     	// printf
+#include <fcntl.h>      // Modos de apertura de dispositivos
+#include <termios.h>    // struct termios
+#include <stdio.h>      // printf
 #include <stdlib.h>
-#include <string.h>    	// bzero, strerror
-#include <math.h>      	//Funciones sin, cos
-#include <errno.h>		// errno y perror
+#include <string.h>     // bzero, strerror
+#include <math.h>       // sin, cos
+#include <errno.h>      // errno, perror
 #include <unistd.h>
 #include <sys/timeb.h>
 #include <sys/time.h>
@@ -475,4 +494,3 @@ extern "C" {
 #endif
 
 #endif
-
