@@ -714,7 +714,7 @@ int Mcdc3006s::calibrateDriver(long int limit, int current_limit, int calibratio
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Current Limit Reached Could not establish home position");
             status = ERR_CURLIM; // Error calibrating the driver (limit current reached)
         }
-        else if (timeDifferenceMsec(&before, &now) > time_out) {
+        else if (_comm.timeDifferenceMsec(&before, &now) > time_out) {
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
             status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
         }

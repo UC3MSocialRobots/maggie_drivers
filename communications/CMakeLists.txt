@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(motor_drivers)
+project(communications)
 
 ## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS communications roscpp)
+find_package(catkin REQUIRED COMPONENTS roscpp)
 
 ###################################
 ## catkin specific configuration ##
@@ -12,9 +10,9 @@ find_package(catkin REQUIRED COMPONENTS communications roscpp)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
-   INCLUDE_DIRS src
-   CATKIN_DEPENDS roscpp
-   DEPENDS communications
+    INCLUDE_DIRS src
+    CATKIN_DEPENDS roscpp
+    DEPENDS
 )
 
 ###########
@@ -24,8 +22,8 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-   include src
-   ${catkin_INCLUDE_DIRS}
+    include src
+    ${catkin_INCLUDE_DIRS}
 )
 
 ADD_SUBDIRECTORY(src)
@@ -39,7 +37,7 @@ ADD_SUBDIRECTORY(src)
 
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
-   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-   FILES_MATCHING PATTERN "*.h"
-   PATTERN ".svn" EXCLUDE
+    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE
 )

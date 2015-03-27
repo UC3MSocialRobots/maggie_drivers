@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>motor_drivers</name>
+    <name>communications</name>
     <version>0.0.1</version>
     <description>
-        motor drivers
+        communications
     </description>
 
-    <!-- Author tags are optional, multiple are allowed, one per tag -->
+    <!-- Author tags are optional, mutiple are allowed, one per tag -->
     <!-- Authors do not have to be maintianers, but could be -->
     <author email="raul.perula@uc3m.es">Raul Perula-Martinez</author>
 
@@ -20,7 +20,7 @@
 
 
     <!-- Url tags are optional, but mutiple are allowed, one per tag -->
-    <url type="website">http://wiki.ros.org/motor_drivers</url>
+    <url type="website">http://wiki.ros.org/communications</url>
     <url type="bugtracker">https://github.com/UC3MSocialRobots/maggie_drivers/issues</url>
     <url type="repository">https://github.com/UC3MSocialRobots/maggie_drivers.git</url>
 
@@ -33,8 +33,9 @@
     <build_depend>roscpp</build_depend>
     <exec_depend>roscpp</exec_depend>
 
-    <!-- AD packages dependencies -->
-    <depend>communications</depend>
+    <!-- tests dependencies -->
+    <test_depend>gtest</test_depend>
+    <test_depend>google-mock</test_depend>
 
 
     <!-- The export tag contains other, unspecified, tags -->
