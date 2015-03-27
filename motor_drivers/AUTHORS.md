@@ -16,4 +16,4 @@ motor_drivers package was designed and developed by the Social Robots Group at R
 
 ### Thanks
 
-[See all Github contributors](https://github.com/UC3MSocialRobots/maggie_devices/contributors)
+[See all Github contributors](https://github.com/UC3MSocialRobots/maggie_drivers/contributors)
