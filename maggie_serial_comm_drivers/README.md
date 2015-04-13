@@ -1,4 +1,4 @@
-# serial_comm_drivers
+# maggie_serial_comm_drivers
 
 ROS package for the drivers of the serial communication for the Social Robot Maggie.
 

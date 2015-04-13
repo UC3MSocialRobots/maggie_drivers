@@ -1,6 +1,6 @@
 # Authors and Contributors
 
-serial_comm_drivers package was designed and developed by the Social Robots Group at Robotics Lab, UC3M (Spain).
+maggie_serial_comm_drivers package was designed and developed by the Social Robots Group at Robotics Lab, UC3M (Spain).
 
 ### Current Team
 
