@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(ir_drivers)
+project(maggie_ir_drivers)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS roscpp)

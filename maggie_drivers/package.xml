@@ -29,11 +29,11 @@
     <!-- Dependencies can be catkin packages or system dependencies -->
     <buildtool_depend>catkin</buildtool_depend>
 
-    <run_depend>ir_drivers</run_depend>
-    <run_depend>labjack_drivers</run_depend>
-    <run_depend>motor_drivers</run_depend>
-    <run_depend>rfid_drivers</run_depend>
-    <run_depend>serial_comm_drivers</run_depend>
+    <run_depend>maggie_ir_drivers</run_depend>
+    <run_depend>maggie_labjack_drivers</run_depend>
+    <run_depend>maggie_motor_drivers</run_depend>
+    <run_depend>maggie_rfid_drivers</run_depend>
+    <run_depend>maggie_serial_comm_drivers</run_depend>
 
 
     <!-- The export tag contains other, unspecified, tags -->

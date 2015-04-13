@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(labjack_drivers)
+project(maggie_labjack_drivers)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS roscpp)
