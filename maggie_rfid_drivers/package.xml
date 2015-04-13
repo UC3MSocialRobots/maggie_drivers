@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>rfid_drivers</name>
+    <name>maggie_rfid_drivers</name>
     <version>0.0.1</version>
     <description>
-        rfid drivers
+        rfid drivers for Maggie robot
     </description>
 
     <!-- Author tags are optional, mutiple are allowed, one per tag -->

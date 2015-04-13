@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>serial_comm_drivers</name>
+    <name>maggie_serial_comm_drivers</name>
     <version>0.0.1</version>
     <description>
-        serial_comm drivers
+        serial_comm drivers for Maggie robot
     </description>
 
     <!-- Author tags are optional, mutiple are allowed, one per tag -->

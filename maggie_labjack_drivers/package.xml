@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>labjack_drivers</name>
+    <name>maggie_labjack_drivers</name>
     <version>0.0.1</version>
     <description>
-        labjack drivers
+        labjack drivers for Maggie robot
     </description>
 
     <!-- Author tags are optional, mutiple are allowed, one per tag -->

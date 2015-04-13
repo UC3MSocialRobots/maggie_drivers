@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>motor_drivers</name>
+    <name>maggie_motor_drivers</name>
     <version>0.0.1</version>
     <description>
-        motor drivers
+        motor drivers for Maggie robot
     </description>
 
     <!-- Author tags are optional, multiple are allowed, one per tag -->
