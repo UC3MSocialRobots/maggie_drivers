@@ -34,7 +34,7 @@
     <exec_depend>roscpp</exec_depend>
 
     <!-- AD packages dependencies -->
-    <depend>communications</depend>
+    <depend>sr_communications</depend>
 
 
     <!-- The export tag contains other, unspecified, tags -->

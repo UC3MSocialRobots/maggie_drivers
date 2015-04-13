@@ -4,7 +4,7 @@ project(maggie_motor_drivers)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS communications roscpp)
+find_package(catkin REQUIRED COMPONENTS sr_communications roscpp)
 
 ###################################
 ## catkin specific configuration ##
@@ -14,7 +14,7 @@ find_package(catkin REQUIRED COMPONENTS communications roscpp)
 catkin_package(
    INCLUDE_DIRS src
    CATKIN_DEPENDS roscpp
-   DEPENDS communications
+   DEPENDS sr_communications
 )
 
 ###########
