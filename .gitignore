@@ -27,6 +27,9 @@
 *.out
 *.app
 
+# Autosaved files
+*~
+
 # IDEs
 CMakeLists.txt.user
 .project
