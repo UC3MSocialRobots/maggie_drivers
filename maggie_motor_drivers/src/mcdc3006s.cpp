@@ -681,7 +681,6 @@ int Mcdc3006s::calibrateDriver(int limit)
     char calibrationResponse[SP_MSG_SIZE];
 
     int status = 1;
-    struct timeval before, now;
 
     // Configurating the driver parameters
     sprintf(calibrationCommand, "LCC%d\n\r", CALIBRATION_CURRENT_LIMIT); // LCC: Load Continous Current LPC: Load peak current
@@ -704,16 +703,10 @@ int Mcdc3006s::calibrateDriver(int limit)
         return ERR_NOHOME;
     }
 
-    gettimeofday(&before, 0);
-    do {
-        gettimeofday(&now, 0);
-
-        if (timeDifferenceMsec(&before, &now) > CALIBRATION_TIMEOUT) {
-            ROS_INFO("[MCDC3006S] calibrateDriver() --> Calibration done");
-            status = ERR_NOERR; // Timeout reached
-        }
-    }
-    while(status == 1);
+    
+    sleep(CALIBRATION_TIMEOUT);
+    status = ERR_NOERR; // Timeout reached
+    ROS_INFO("[MCDC3006S] calibrateDriver() --> Calibration done");
 
     // Assuring that the driver stops at this point setting the actual position as target position
 	

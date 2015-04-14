@@ -29,7 +29,7 @@
  */
 //#define MCDC3006S_PULSES_PER_REV 2048     // Warning
 //#define MCDC3006S_REDUCTION_FACTOR 123000 /* motorValue = FACTOR * dofValue */
-#define CALIBRATION_TIMEOUT 5000           /**< Calibration timeout in milliseconds */
+#define CALIBRATION_TIMEOUT 5           /**< Calibration timeout in seconds */
 #define CALIBRATION_VELOCITY 400	    // Calibration velocity in rpm
 #define CALIBRATION_CURRENT_LIMIT 1500	    // Calibration limit current in mA
 
