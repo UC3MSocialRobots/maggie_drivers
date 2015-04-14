@@ -351,18 +351,10 @@ class Mcdc3006s : public MotorDriverInterface {
         /**
          * @brief starts the calibration sequence of the drive
          * @param limit sensor position in pulses measured from the desired 0 position
-         * @param currentLimit max current the motor is not allowed to exceed (in mA) This limit is
-         *        directly related to torque of the motor.
-         * @param calibrationSpeed The speed of the motor during the calibration
-         * @param timeOut maximum time (in milli seconds) to perform the calibration. If this time is
-         *        exceeded the function will return an error.
          * @return ERR_NOERR If the calibration is done successfully
-         * @return ERR_CURLIM if the current limit is reached during the calibration. I.E. an obstacle
-         *         is blocking the motor.
-         * @return ERR_TIMEOUT if the calibration process lasts more than the timeOut value
          * @return ERR_NOHOME if it is not possible to establish the home position
          */
-        int calibrateDriver(long int limit, int current_limit, int calibration_speed, int time_out);
+        int calibrateDriver(int limit);
 
     private:
         Rs232 _comm;

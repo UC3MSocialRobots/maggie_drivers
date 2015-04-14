@@ -361,7 +361,7 @@ class MotorDriverInterface {
          * @return ERR_TIMEOUT if the calibration process lasts more than the timeOut value
          * @return ERR_NOHOME if it is not possible to establish the home position
          */
-        virtual int calibrateDriver(long int limit, int current_limit, int calibration_speed, int time_out) = 0;
+        virtual int calibrateDriver(int limit) = 0;
 };
 
 #endif
