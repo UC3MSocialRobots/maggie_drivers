@@ -75,17 +75,14 @@ class Mcdc3006s : public MotorDriverInterface {
          */
         int get_config(driverConf_t *dc);
 
-        /* get configuration from the driver */
-
         /**
          * @brief returns the maximum position allowed by the driver. To set this value see
          * @see SetDriverMaxPos
          *
          * @return ERR_NOERR if there aren't any problems
          * @return ERR_COM if could not communicate with the driver (either write or read)
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         * @todo change the way I save the parameter. It has to be saved by parameter by reference.
          * Return only must return Error control
-         *
          */
         long int get_max_pos();
 
@@ -94,8 +91,10 @@ class Mcdc3006s : public MotorDriverInterface {
          *
          * @return returns the value of the min position in pulses
          * @return ERR_COM if could not communicate with the driver (either write or read)
-         * <b>Warning</b>, it is possible to recevie a min pos which the same as ERR_COM. If this happens the function will wrongly understand that an error has occured
-         * * \todo change the way I save the parameter. It has to be saved by parameter by reference. Return only must return Error control
+         * <b>Warning</b>, it is possible to receive a min position which the same as ERR_COM. If this happens the
+         * function will wrongly understand that an error has occured
+         * @todo change the way I save the parameter. It has to be saved by parameter by reference. Return only must
+         * @return Error control
          */
         long int get_min_pos();
 
@@ -103,7 +102,7 @@ class Mcdc3006s : public MotorDriverInterface {
          * @brief Returns the maximum speed allowed by the driver which is set with setDriverMaxVel()
          *        function
          *
-         * @return maxVel configurated in the drive in r.p.m.
+         * @return maxVel configured in the drive in r.p.m.
          * @return ERR_COM if could not communicate with the driver (either write or read)
          * \todo change the way I save the parameter. It has to be saved by parameter by reference.
          *  Return only must return Error control
@@ -113,7 +112,7 @@ class Mcdc3006s : public MotorDriverInterface {
         /**
          * @brief returns the maximum acceleration allowed by the driver. To set this value see @see SetDriverMaxAcc
          *
-         * @return maxAcc Returns the maximum acceleration revolutions/sec²
+         * @return maxAcc Returns the maximum acceleration revolutions/sec2
          * @return ERR_COM if could not communicate with the driver (either write or read)
          * \todo change the way I save the parameter. It has to be saved by parameter by reference.
          * Return only must return Error control
@@ -121,10 +120,10 @@ class Mcdc3006s : public MotorDriverInterface {
         long int get_max_acc();
 
         /**
-         * @brief returns the maximum decceleration allowed by the driver. To set this value see
+         * @brief returns the maximum deceleration allowed by the driver. To set this value see
          * @see SetDriverMaxDec
          *
-         * @return maxDec Returns the maximum decceleration revolutions/sec²
+         * @return maxDec Returns the maximum deceleration revolutions/sec2
          * @return ERR_COM if could not communicate with the driver (either write or read)
          * \todo change the way I save the parameter. It has to be saved by parameter by reference.
          * Return only must return Error control
@@ -133,9 +132,9 @@ class Mcdc3006s : public MotorDriverInterface {
         long int get_max_dec();
 
         /**
-         * @brief get the continous current limit (CCL) in mA.
+         * @brief get the continuous current limit (CCL) in mA.
          *
-         * @return returns the value of the continous current limit (CCL) in mA.
+         * @return returns the value of the continuous current limit (CCL) in mA.
          * @return ERR_COM if could not communicate with the driver (either write or read)
          *
          * WARNING: Untested Function @TODO
@@ -158,32 +157,36 @@ class Mcdc3006s : public MotorDriverInterface {
 
         /**
          * @brief Asks to the driver its current status
-         * @param drvStatus is a structure where the current driver status is stored. Each of the parameters of the drvStatus are set to 1 if true or 0 if false
+         * @param drvStatus is a structure where the current driver status is stored. Each of the parameters of the
+         *        drvStatus are set to 1 if true or 0 if false
          * @return ERR_NOERR if the status could be returned
          * @return ERR_COM if it is not possible to check the driver status
          */
-        int get_status(driverStatus_t * drvStatus);
+        int get_status(driverStatus_t *drvStatus);
 
         /**
          * @brief asks for sensor data of the driver
          * @param sensor is the sensor structure where we want to store the sensor data from the driver.
-         * @return ERR_NOERR if no error (operation is succesful)
-         * @return ERR_COM if there is an error communicating whit the driver. In this case some (of all) of the sensor parameters could not be up to date.
+         * @return ERR_NOERR if no error (operation is successful)
+         * @return ERR_COM if there is an error communicating whit the driver. In this case some (of all) of the sensor
+         *         parameters could not be up to date.
          */
         int get_sensor(driverSensor_t *sensor);
 
         /**
          * @brief asks for the instant position from sensor data of the driver.
-         * @param position is a pointer pointing to where the position sensor data from the driver will be stored. The units from the driver are in [pulses]
-         * @return ERR_NOERR if no error (operation is succesful)
+         * @param position is a pointer pointing to where the position sensor data from the driver will be stored. The
+         *        units from the driver are in [pulses]
+         * @return ERR_NOERR if no error (operation is successful)
          * @return ERR_COM if there is an error communicating whit the driver.
          */
         int get_instant_pos(long int *positon);
 
         /**
          * @brief asks for the instant velocity from sensor data of the driver.
-         * @param velocity is where the velocity sensor data from the driver will be stored. The units from the driver are [rpm]
-         * @return ERR_NOERR if no error (operation is succesful)
+         * @param velocity is where the velocity sensor data from the driver will be stored. The units from the driver
+         *        are [rpm]
+         * @return ERR_NOERR if no error (operation is successful)
          * @return ERR_COM if there is an error communicating whit the driver.
          */
         int get_instant_vel(long int *velocity);
@@ -192,7 +195,7 @@ class Mcdc3006s : public MotorDriverInterface {
          * @brief asks for the instant velocity from sensor data of the driver.
          * @param current is where the instant current data from the driver will be stored.
          *        The units from the driver are [rpm]
-         * @return ERR_NOERR if no error (operation is succesful)
+         * @return ERR_NOERR if no error (operation is successful)
          * @return ERR_COM if there is an error communicating whit the driver.
          */
         int get_instant_current(int *current);
@@ -243,7 +246,7 @@ class Mcdc3006s : public MotorDriverInterface {
 
         /**
          * @brief sets the maximum deceleration allowed by the driver in revolutions/s^2
-         * @param maxDec maximum deceleration in r/sec²
+         * @param maxDec maximum deceleration in r/sec2
          * @return ERR_NOERR if everything goes correct
          * @return ERR_WRI if could not write to the driver
          *
@@ -251,7 +254,7 @@ class Mcdc3006s : public MotorDriverInterface {
         int set_max_dec(long int maxDec);
 
         /**
-         * @brief loads continous current limit
+         * @brief loads continuous current limit
          * @param cl current limit in mA Range = [0 - 12000mA]
          * @return ERR_NOERR if everything goes correct
          * @return ERR_WRI if could not write to the driver
@@ -269,7 +272,7 @@ class Mcdc3006s : public MotorDriverInterface {
         /**
          * @brief tells to the driver at which baudrate we want to operate
          * @param baud is the baudrate of the communication.
-         * @return ERR_NOERR if the configuration is succesful
+         * @return ERR_NOERR if the configuration is successful
          * @return ERR_OUTOFRANGE if the parameter baud is not in the expected values
          * @return ERR_WRI if it is not possible to write to the driver the configuration
          */
@@ -300,8 +303,8 @@ class Mcdc3006s : public MotorDriverInterface {
         int move_vel(long int vel);
 
         /**
-         * @brief Save current configuartion params to FLASH memory of the drive, so the nest time
-         *        the drive is turned on it loads thas configuration.
+         * @brief Save current configuration params to FLASH memory of the drive, so the nest time
+         *        the drive is turned on it loads this configuration.
          * WARNING!!! It should not be used more than 10,000 times because the FLASH memory could
          *            get damaged!!!
          *
@@ -318,7 +321,7 @@ class Mcdc3006s : public MotorDriverInterface {
          * @brief Activates/Deactivates the driver Limits. If the limits aren't activated the driver
          *        will NOT respect the Maximum or Minimum positions.
          * @param action it only has two allowed values: ACTIVATE to activate de driver or DEACTIVATE
-         *        to disºable de driver
+         *        to disable the driver
          *
          * @return ERR_NOERR if everything works correctly
          * @return ERR_WRI in case of error when writing in the driver descriptor file
@@ -327,7 +330,7 @@ class Mcdc3006s : public MotorDriverInterface {
         int activate_limits(int action);
 
         /**
-         * @brief Sets the current positon as the given value. NOTE: Use only during the calibration phase.
+         * @brief Sets the current position as the given value. NOTE: Use only during the calibration phase.
          *        This function sends to the driver the Home command. The home commands tells to the driver which
          *        is the current position. For example If we send home = 0
          *        we are telling to the driver that the current position is 0 position (and it should used as a

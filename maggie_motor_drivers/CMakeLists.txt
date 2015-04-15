@@ -12,9 +12,9 @@ find_package(catkin REQUIRED COMPONENTS sr_communications roscpp)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
-   INCLUDE_DIRS src
-   CATKIN_DEPENDS roscpp
-   DEPENDS sr_communications
+    INCLUDE_DIRS src
+    CATKIN_DEPENDS roscpp
+    DEPENDS sr_communications
 )
 
 ###########
@@ -24,8 +24,8 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-   include src
-   ${catkin_INCLUDE_DIRS}
+    include src
+    ${catkin_INCLUDE_DIRS}
 )
 
 ADD_SUBDIRECTORY(src)
@@ -39,7 +39,7 @@ ADD_SUBDIRECTORY(src)
 
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
-   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-   FILES_MATCHING PATTERN "*.h"
-   PATTERN ".svn" EXCLUDE
+    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE
 )
