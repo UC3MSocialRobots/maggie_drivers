@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd `rospack find ir_drivers`/third_parties/irserver/
+cd `rospack find maggie_ir_drivers`/third_parties/irserver/
 
 MACHINE_TYPE=`uname -m`
 if [ ${MACHINE_TYPE} == "x86_64" ]; then

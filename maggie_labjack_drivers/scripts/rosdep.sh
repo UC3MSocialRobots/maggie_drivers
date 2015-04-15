@@ -35,7 +35,7 @@ echo
 echo "INSTALLING EXODRIVER..."
 echo
 
-cd `rospack find labjack_drivers`/third_parties/
+cd `rospack find maggie_labjack_drivers`/third_parties/
 git clone git://github.com/labjack/exodriver.git
 cd exodriver/
 
@@ -54,7 +54,7 @@ echo
 echo "INSTALLING LJACKLM DRIVER..."
 echo
 
-cd `rospack find labjack_drivers`/third_parties/
+cd `rospack find maggie_labjack_drivers`/third_parties/
 wget http://labjack.com/sites/default/files/2013/10/ljacklm.zip
 
 unzip ljacklm.zip
@@ -69,7 +69,7 @@ echo
 echo "INSTALLING LABJACKPYTHON DRIVER..."
 echo
 
-cd `rospack find labjack_drivers`/third_parties/
+cd `rospack find maggie_labjack_drivers`/third_parties/
 git clone git://github.com/labjack/LabJackPython.git
 cd LabJackPython/
 sudo python setup.py install
