@@ -745,19 +745,19 @@ int Mcdc3006s::calibrateDriver(int limit)
     struct timeval before, now;
 
     // Configurating the driver parameters
-    sprintf(calibrationCommand, "LCC%d\n\r", current_limit); // LCC: Load Continous Current LPC: Load peak current
+    sprintf(calibrationCommand, "LCC%d\n\r", CALIBRATION_CURRENT_LIMIT); // LCC: Load Continous Current LPC: Load peak current
     if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
         return ERR_NOHOME;
     }
 
-    sprintf(calibrationCommand, "HL8\n\r", current_limit);
+    sprintf(calibrationCommand, "HL8\n\r");
     if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
         return ERR_NOHOME;
     }
 
-    sprintf(calibrationCommand, "V%d\n\r", calibration_speed);
+    sprintf(calibrationCommand, "V%d\n\r", CALIBRATION_VELOCITY);
     if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
         return ERR_NOHOME;
@@ -775,7 +775,7 @@ int Mcdc3006s::calibrateDriver(int limit)
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Current Limit Reached Could not establish home position");
             status = ERR_CURLIM; // Error calibrating the driver (limit current reached)
         }
-        else if (timeDifferenceMsec(&before, &now) > time_out) {
+        else if (timeDifferenceMsec(&before, &now) > CALIBRATION_TIMEOUT) {
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
             status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
         }
