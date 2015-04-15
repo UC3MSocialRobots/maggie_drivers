@@ -676,6 +676,8 @@ int Mcdc3006s::setDriverHomePosition(long int home)
 
 int Mcdc3006s::calibrateDriver(int limit)
 {
+    ROS_WARN("Start calibration low level - Limit: %d\n", limit);
+
     // This is the input 4 of the driver. In this input is connected the sensor.
     char calibrationCommand[SP_MSG_SIZE];
     char calibrationResponse[SP_MSG_SIZE];
@@ -714,7 +716,7 @@ int Mcdc3006s::calibrateDriver(int limit)
 	
     // Moving the driver to the requested home position.
     if (status == ERR_NOERR) {
-
+			ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
 			moveDriverRelPos(limit);	// move driver to the requested position (in pulses)
 			sleep(2);
 			if(setDriverHomePosition(limit) == 0) {		//set home position
