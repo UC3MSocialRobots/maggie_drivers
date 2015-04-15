@@ -20,7 +20,7 @@
 
 
     <!-- Url tags are optional, but mutiple are allowed, one per tag -->
-    <url type="website">http://wiki.ros.org/serial_comm_drivers</url>
+    <url type="website">http://wiki.ros.org/maggie_serial_comm_drivers</url>
     <url type="bugtracker">https://github.com/UC3MSocialRobots/maggie_drivers/issues</url>
     <url type="repository">https://github.com/UC3MSocialRobots/maggie_drivers.git</url>
 
