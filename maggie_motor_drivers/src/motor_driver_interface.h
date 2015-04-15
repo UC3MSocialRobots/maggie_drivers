@@ -52,14 +52,14 @@ class MotorDriverInterface {
          * @return ERR_NOERR if everything works correctly
          * @return ERR_WRI in case of error when writing in the driver descriptor file
          */
-        virtual int enableDriver() = 0;
+        virtual int enable_driver() = 0;
 
         /**
          * @brief Disables the driver
          * @return ERR_NOERR if everything works correctly
          * @return ERR_WRI in case of error when writing in the driver descriptor file
          */
-        virtual int disableDriver() = 0;
+        virtual int disable_driver() = 0;
 
         /**
          * @brief Function that gets the current driver configuration as is stored in the
@@ -72,7 +72,127 @@ class MotorDriverInterface {
          *         the driver. When this happens at least one of the parameters of the driverConf_t
          *         structure could be incomplete.
          */
-        virtual int getDriverConf(driverConf_t *dc) = 0;
+        virtual int get_config(driverConf_t *dc) = 0;
+
+        /**
+         * @brief returns the maximum position allowed by the driver. To set this value see
+         * @see SetDriverMaxPos
+         *
+         * @return ERR_NOERR if there aren't any problems
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         * Return only must return Error control
+         *
+         */
+        virtual long int get_max_pos() = 0;
+
+        /**
+         * @brief This function reads from the driver min position from its flash memory
+         *
+         * @return returns the value of the min position in pulses
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         * <b>Warning</b>, it is possible to recevie a min pos which the same as ERR_COM. If this happens the function will wrongly understand that an error has occured
+         * * \todo change the way I save the parameter. It has to be saved by parameter by reference. Return only must return Error control
+         */
+        virtual long int get_min_pos() = 0;
+
+        /**
+         * @brief Returns the maximum speed allowed by the driver which is set with setDriverMaxVel()
+         *        function
+         *
+         * @return maxVel configurated in the drive in r.p.m.
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         *  Return only must return Error control
+         */
+        virtual long int get_max_vel() = 0;
+
+        /**
+         * @brief returns the maximum acceleration allowed by the driver. To set this value see @see SetDriverMaxAcc
+         *
+         * @return maxAcc Returns the maximum acceleration revolutions/sec²
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         * Return only must return Error control
+         */
+        virtual long int get_max_acc() = 0;
+
+        /**
+         * @brief returns the maximum decceleration allowed by the driver. To set this value see
+         * @see SetDriverMaxDec
+         *
+         * @return maxDec Returns the maximum decceleration revolutions/sec²
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         * Return only must return Error control
+         *
+         */
+        virtual long int get_max_dec() = 0;
+
+        /**
+         * @brief get the continous current limit (CCL) in mA.
+         *
+         * @return returns the value of the continous current limit (CCL) in mA.
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         *
+         * WARNING: Untested Function @TODO
+         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         * Return only must return Error control
+         */
+        virtual int get_cur_lim() = 0;
+
+        /**
+         * @brief get the Peak Current Limit (PCL) in mA.
+         *
+         * @return returns the value of the peak current limit (PCL) in mA.
+         * @return ERR_COM if could not communicate with the driver (either write or read)
+         *
+         * WARNING: Untested Function @TODO
+         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
+         * Return only must return Error control
+         */
+        virtual int get_peak_cur_lim() = 0;
+
+        /**
+         * @brief Asks to the driver its current status
+         * @param drvStatus is a structure where the current driver status is stored. Each of the parameters of the drvStatus are set to 1 if true or 0 if false
+         * @return ERR_NOERR if the status could be returned
+         * @return ERR_COM if it is not possible to check the driver status
+         */
+        virtual int get_status(driverStatus_t * drvStatus) = 0;
+
+        /**
+         * @brief asks for sensor data of the driver
+         * @param sensor is the sensor structure where we want to store the sensor data from the driver.
+         * @return ERR_NOERR if no error (operation is succesful)
+         * @return ERR_COM if there is an error communicating whit the driver. In this case some (of all) of the sensor parameters could not be up to date.
+         */
+        virtual int get_sensor(driverSensor_t *sensor) = 0;
+
+        /**
+         * @brief asks for the instant position from sensor data of the driver.
+         * @param position is a pointer pointing to where the position sensor data from the driver will be stored. The units from the driver are in [pulses]
+         * @return ERR_NOERR if no error (operation is succesful)
+         * @return ERR_COM if there is an error communicating whit the driver.
+         */
+        virtual int get_instant_pos(long int *positon) = 0;
+
+        /**
+         * @brief asks for the instant velocity from sensor data of the driver.
+         * @param velocity is where the velocity sensor data from the driver will be stored. The units from the driver are [rpm]
+         * @return ERR_NOERR if no error (operation is succesful)
+         * @return ERR_COM if there is an error communicating whit the driver.
+         */
+        virtual int get_instant_vel(long int *velocity) = 0;
+
+        /**
+         * @brief asks for the instant velocity from sensor data of the driver.
+         * @param current is where the instant current data from the driver will be stored.
+         *        The units from the driver are [rpm]
+         * @return ERR_NOERR if no error (operation is succesful)
+         * @return ERR_COM if there is an error communicating whit the driver.
+         */
+        virtual int get_instant_current(int *current) = 0;
 
         /**
          * @brief Function that configures the driver from a driverConf_t type
@@ -80,7 +200,101 @@ class MotorDriverInterface {
          * @return ERR_NOERR if success
          * @return ERR_CONF if any error occurs
          */
-        virtual int setDriverConf(driverConf_t dc) = 0;
+        virtual int set_config(driverConf_t dc) = 0;
+
+        /**
+         * @brief Sets the maximum absolute position in pulses
+         * @param maxPos in pulses
+         * @return ERR_NOERR if everything has gone correctly
+         * @return ERR_OUTOFRANGE if maxPos is below or equal 0 (maxPos must be higher than 0).
+         * @return ERR_WRI if could not write to the driver
+         * @return ERR_POSLIMIT if it is not possible to activate the limits
+         */
+        virtual int set_max_pos(long int maxPos) = 0;
+
+        /**
+         * @brief Sets the minimum absolute position in pulses
+         * @param minPos is the minimum absolute position in pulses
+         * @return ERR_NOERR if everything has gone correctly
+         * @return ERR_OUTOFRANGE if minPos is higher or equal than 0 (minPos must be lower than 0).
+         * @return ERR_WRI if could not write to the driver
+         * @return ERR_POSLIMIT if it is not possible to activate the limits
+         */
+        virtual int set_min_pos(long int minPos) = 0;
+
+        /**
+         * @brief Sets the maximum speed allowed by the driver in rpm
+         * @param maxVel in r.p.m.
+         * @return ERR_NOERR if everything goes correct
+         * @return ERR_WRI if could not write to the driver
+         */
+        virtual int set_max_vel(long int maxVel) = 0;
+
+        /**
+         * @brief sets the maximum acceleration allowed by the driver in revolutions/s^2
+         * @param maxAcc maximum acceleration in revolutions/s^2
+         * @return ERR_NOERR if everything goes correct
+         * @return ERR_WRI if could not write to the driver
+         */
+        virtual int set_max_acc(long int maxAcc) = 0;
+
+        /**
+         * @brief sets the maximum deceleration allowed by the driver in revolutions/s^2
+         * @param maxDec maximum deceleration in r/sec²
+         * @return ERR_NOERR if everything goes correct
+         * @return ERR_WRI if could not write to the driver
+         *
+         */
+        virtual int set_max_dec(long int maxDec) = 0;
+
+        /**
+         * @brief loads continous current limit
+         * @param cl current limit in mA Range = [0 - 12000mA]
+         * @return ERR_NOERR if everything goes correct
+         * @return ERR_WRI if could not write to the driver
+         */
+        virtual int set_cur_lim(int cl) = 0;
+
+        /**
+         * @brief loads peak current limit
+         * @param pcl current limit in mA Range = [0 - 12000mA]
+         * @return ERR_NOERR if everything goes correct
+         * @return ERR_WRI if could not write to the driver
+         */
+        virtual int set_peak_cur_lim(int pcl) = 0;
+
+        /**
+         * @brief tells to the driver at which baudrate we want to operate
+         * @param baud is the baudrate of the communication.
+         * @return ERR_NOERR if the configuration is succesful
+         * @return ERR_OUTOFRANGE if the parameter baud is not in the expected values
+         * @return ERR_WRI if it is not possible to write to the driver the configuration
+         */
+        virtual int set_baudrate(int baud) = 0;
+
+        /**
+         * @brief Sends to the driver the order to move to an absolute position in pulses
+         * @param p absolute position in pulses
+         * @return ERR_NOERR if no error sending the command to the driver
+         * @return ERR_WRI if it isn't possible to communicate with the driver
+         */
+        virtual int move_abs_pos(long int pos) = 0;
+
+        /**
+         * @brief Sends to the driver the order to move to a relative position in pulses
+         * @param p relative position in pulses
+         * @return ERR_NOERR if no error sending the command to the driver
+         * @return ERR_WRI if it isn't possible to communicate with the driver
+         */
+        virtual int move_rel_pos(long int pos) = 0;
+
+        /**
+         * @brief Sends to the driver the order to move at a determined speed (in rpm)
+         * @param v velocity in rpm (revolutions per minute)
+         * @return ERR_NOERR if no error sending the command to the driver
+         * @return ERR_WRI if it isn't possible to communicate with the driver
+         */
+        virtual int move_vel(long int vel) = 0;
 
         /**
          * @brief Save current configuartion params to FLASH memory of the drive, so the nest time
@@ -95,245 +309,19 @@ class MotorDriverInterface {
          * after successful saving of the current settings in the data Flash memory,
          * or with “Flash defect”, if the save has failed.
          */
-        virtual int saveToFlash() = 0;
-
-        /* set configuration to the driver */
+        virtual int save_to_flash() = 0;
 
         /**
          * @brief Activates/Deactivates the driver Limits. If the limits aren't activated the driver
          *        will NOT respect the Maximum or Minimum positions.
          * @param action it only has two allowed values: ACTIVATE to activate de driver or DEACTIVATE
-         *        to disºable de driver
+         *        to disable de driver
          *
          * @return ERR_NOERR if everything works correctly
          * @return ERR_WRI in case of error when writing in the driver descriptor file
          * @return ERR_OUTOFRANGE if action is not in allowed values set
          */
-        virtual int activateLimits(int action) = 0;
-
-        /* get configuration from the driver */
-
-        /**
-         * @brief returns the maximum position allowed by the driver. To set this value see
-         * @see SetDriverMaxPos
-         *
-         * @return ERR_NOERR if there aren't any problems
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
-         * Return only must return Error control
-         *
-         */
-        virtual long int getDriverMaxPos() = 0;
-
-        /**
-         * @brief This function reads from the driver min position from its flash memory
-         *
-         * @return returns the value of the min position in pulses
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         * <b>Warning</b>, it is possible to recevie a min pos which the same as ERR_COM. If this happens the function will wrongly understand that an error has occured
-         * * \todo change the way I save the parameter. It has to be saved by parameter by reference. Return only must return Error control
-         */
-        virtual long int getDriverMinPos() = 0;
-
-        /**
-         * @brief Returns the maximum speed allowed by the driver which is set with setDriverMaxVel()
-         *        function
-         *
-         * @return maxVel configurated in the drive in r.p.m.
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
-         *  Return only must return Error control
-         */
-        virtual long int getDriverMaxVel() = 0;
-
-        /**
-         * @brief returns the maximum acceleration allowed by the driver. To set this value see @see SetDriverMaxAcc
-         *
-         * @return maxAcc Returns the maximum acceleration revolutions/sec²
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
-         * Return only must return Error control
-         */
-        virtual long int getDriverMaxAcc() = 0;
-
-        /**
-         * @brief returns the maximum decceleration allowed by the driver. To set this value see
-         * @see SetDriverMaxDec
-         *
-         * @return maxDec Returns the maximum decceleration revolutions/sec²
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
-         * Return only must return Error control
-         *
-         */
-        virtual long int getDriverMaxDec() = 0;
-
-        /**
-         * @brief get the continous current limit (CCL) in mA.
-         *
-         * @return returns the value of the continous current limit (CCL) in mA.
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         *
-         * WARNING: Untested Function @TODO
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
-         * Return only must return Error control
-         */
-        virtual int getDriverCurLim() = 0;
-
-        /**
-         * @brief get the Peak Current Limit (PCL) in mA.
-         *
-         * @return returns the value of the peak current limit (PCL) in mA.
-         * @return ERR_COM if could not communicate with the driver (either write or read)
-         *
-         * WARNING: Untested Function @TODO
-         * \todo change the way I save the parameter. It has to be saved by parameter by reference.
-         * Return only must return Error control
-         */
-        virtual int getDriverPCurLim() = 0;
-
-        /* get status from the driver */
-
-        /**
-         * @brief Asks to the driver its current status
-         * @param drvStatus is a structure where the current driver status is stored. Each of the parameters of the drvStatus are set to 1 if true or 0 if false
-         * @return ERR_NOERR if the status could be returned
-         * @return ERR_COM if it is not possible to check the driver status
-         */
-        virtual int getDriverStatus(driverStatus_t * drvStatus) = 0;
-
-        /* get motorSensor from the driver */
-
-        /**
-         * @brief asks for sensor data of the driver
-         * @param sensor is the sensor structure where we want to store the sensor data from the driver.
-         * @return ERR_NOERR if no error (operation is succesful)
-         * @return ERR_COM if there is an error communicating whit the driver. In this case some (of all) of the sensor parameters could not be up to date.
-         */
-        virtual int getDriverSensor(driverSensor_t *sensor) = 0;
-
-        /**
-         * @brief asks for the instant position from sensor data of the driver.
-         * @param position is a pointer pointing to where the position sensor data from the driver will be stored. The units from the driver are in [pulses]
-         * @return ERR_NOERR if no error (operation is succesful)
-         * @return ERR_COM if there is an error communicating whit the driver.
-         */
-        virtual int getDriverInstantPos(long int *positon) = 0;
-
-        /**
-         * @brief asks for the instant velocity from sensor data of the driver.
-         * @param velocity is where the velocity sensor data from the driver will be stored. The units from the driver are [rpm]
-         * @return ERR_NOERR if no error (operation is succesful)
-         * @return ERR_COM if there is an error communicating whit the driver.
-         */
-        virtual int getDriverInstantVel(long int *velocity) = 0;
-
-        /**
-         * @brief asks for the instant velocity from sensor data of the driver.
-         * @param current is where the instant current data from the driver will be stored.
-         *        The units from the driver are [rpm]
-         * @return ERR_NOERR if no error (operation is succesful)
-         * @return ERR_COM if there is an error communicating whit the driver.
-         */
-        virtual int getDriverInstantCurrent(int *current) = 0;
-
-        /**
-         * @brief Sets the maximum absolute position in pulses
-         * @param maxPos in pulses
-         * @return ERR_NOERR if everything has gone correctly
-         * @return ERR_OUTOFRANGE if maxPos is below or equal 0 (maxPos must be higher than 0).
-         * @return ERR_WRI if could not write to the driver
-         * @return ERR_POSLIMIT if it is not possible to activate the limits
-         */
-        virtual int setDriverMaxPos(long int maxPos) = 0;
-
-        /**
-         * @brief Sets the minimum absolute position in pulses
-         * @param minPos is the minimum absolute position in pulses
-         * @return ERR_NOERR if everything has gone correctly
-         * @return ERR_OUTOFRANGE if minPos is higher or equal than 0 (minPos must be lower than 0).
-         * @return ERR_WRI if could not write to the driver
-         * @return ERR_POSLIMIT if it is not possible to activate the limits
-         */
-        virtual int setDriverMinPos(long int minPos) = 0;
-
-        /**
-         * @brief Sets the maximum speed allowed by the driver in rpm
-         * @param maxVel in r.p.m.
-         * @return ERR_NOERR if everything goes correct
-         * @return ERR_WRI if could not write to the driver
-         */
-        virtual int setDriverMaxVel(long int maxVel) = 0;
-
-        /**
-         * @brief sets the maximum acceleration allowed by the driver in revolutions/s^2
-         * @param maxAcc maximum acceleration in revolutions/s^2
-         * @return ERR_NOERR if everything goes correct
-         * @return ERR_WRI if could not write to the driver
-         */
-        virtual int setDriverMaxAcc(long int maxAcc) = 0;
-
-        /**
-         * @brief sets the maximum deceleration allowed by the driver in revolutions/s^2
-         * @param maxDec maximum deceleration in r/sec²
-         * @return ERR_NOERR if everything goes correct
-         * @return ERR_WRI if could not write to the driver
-         *
-         */
-        virtual int setDriverMaxDec(long int maxDec) = 0;
-
-        /**
-         * @brief loads continous current limit
-         * @param cl current limit in mA Range = [0 - 12000mA]
-         * @return ERR_NOERR if everything goes correct
-         * @return ERR_WRI if could not write to the driver
-         */
-        virtual int setDriverCurLim(int cl) = 0;
-
-        /**
-         * @brief loads peak current limit
-         * @param pcl current limit in mA Range = [0 - 12000mA]
-         * @return ERR_NOERR if everything goes correct
-         * @return ERR_WRI if could not write to the driver
-         */
-        virtual int setDriverPCurLim(int pcl) = 0;
-
-        /**
-         * @brief tells to the driver at which baudrate we want to operate
-         * @param baud is the baudrate of the communication.
-         * @return ERR_NOERR if the configuration is succesful
-         * @return ERR_OUTOFRANGE if the parameter baud is not in the expected values
-         * @return ERR_WRI if it is not possible to write to the driver the configuration
-         */
-        virtual int setDriverBaud(int baud) = 0;
-
-        /* direct movement */
-
-        /**
-         * @brief Sends to the driver the order to move to an absolute position in pulses
-         * @param p absolute position in pulses
-         * @return ERR_NOERR if no error sending the command to the driver
-         * @return ERR_WRI if it isn't possible to communicate with the driver
-         */
-        virtual int moveDriverAbsPos(long int pos) = 0;
-
-        /**
-         * @brief Sends to the driver the order to move to a relative position in pulses
-         * @param p relative position in pulses
-         * @return ERR_NOERR if no error sending the command to the driver
-         * @return ERR_WRI if it isn't possible to communicate with the driver
-         */
-        virtual int moveDriverRelPos(long int pos) = 0;
-
-        /**
-         * @brief Sends to the driver the order to move at a determined speed (in rpm)
-         * @param v velocity in rpm (revolutions per minute)
-         * @return ERR_NOERR if no error sending the command to the driver
-         * @return ERR_WRI if it isn't possible to communicate with the driver
-         */
-        virtual int moveDriverVel(long int vel) = 0;
-
-        /* Calibrate Driver */
+        virtual int activate_limits(int action) = 0;
 
         /**
          * @brief Sets the current positon as the given value. NOTE: Use only during the calibration phase.
@@ -345,7 +333,7 @@ class MotorDriverInterface {
          * @return ERR_NOERR if everything works correctly
          * @return ERR_WRI in case of error when writing in the driver descriptor file
          */
-        virtual int setDriverHomePosition(long int home) = 0;
+        virtual int set_home_position(long int home) = 0;
 
         /**
          * @brief starts the calibration sequence of the drive
@@ -361,7 +349,7 @@ class MotorDriverInterface {
          * @return ERR_TIMEOUT if the calibration process lasts more than the timeOut value
          * @return ERR_NOHOME if it is not possible to establish the home position
          */
-        virtual int calibrateDriver(int limit) = 0;
+        virtual int calibrate(int limit) = 0;
 };
 
 #endif

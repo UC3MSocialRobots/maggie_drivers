@@ -1,109 +1,86 @@
-/***************************************************************************//**
- * @file prbDriverMCDC3006S.c
- * 
- * @brief The test file for the driver MCDC3006S
- * @author Victor Gonzalez ( vgonzale@ing.uc3m.es )
- * @date 30/06/2009
- *******************************************************************************/
+/**
+ * @file        test_manual_mcdc3006s.cpp
+ * @brief       The test file for the driver MCDC3006S.
+ *
+ * @author      Raul Perula-Martinez <raul.perula@uc3m.es>
+ * @date        2015-04
+ * @author      Victor Gonzalez <vgonzale@ing.uc3m.es>
+ * @date        2009-06
+ *
+ * @copyright   Copyright (C) 2015 University Carlos III of Madrid.
+ *              All rights reserved.
+ * @license     LEUC3M v1.0, see LICENSE.txt
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the Licencia Educativa UC3M as published by
+ * the University Carlos III of Madrid, either version 1.0, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY. See the Licencia Educativa UC3M
+ * version 1.0 or any later version for more details.
+ *
+ * A copy of the Licencia Educativa UC3M is in the LICENSE file.
+ */
 
-#include "mcdc3006s/MCDC3006Slib/MCDC3006S.h"
-
-#define AD_HOME getenv( "AD_HOME" )	/* char *getenv(const char *nombre); */
+#include "../mcdc3006s.h"
 
 #define TRUE 1
 #define FALSE 0
 
-#define DEFAULT_SERIAL_DEVICE "/dev/brazo_derecho"
-#define DEFAULT_SEMFILE "/robot/etc/semDrive"
+#define DEFAULT_SERIAL_DEVICE   "/dev/brazo_derecho"
+#define DEFAULT_SEMFILE         "/robot/etc/semDrive"
 
 typedef int boolean;
 
-void mainMenu(driverSensor_t * odo, driverConf_t * dc);
-int moveToPosition(long int position, boolean relative, driverSensor_t * odo, driverConf_t * dc);
-int moveVelocity(long int velocity, driverConf_t * dc);
-
-int main(int argc, char * argv[])
+/**
+ * @brief   Moves the Driver MCDC3006S to an absolute position.
+ *
+ * @param position is the position where the driver should move
+ * @param relative is a boolean that checks if the movement is relative or not
+ * @param odo is the reference to a t_odometry type where the driver odometry is stored
+ * @param dc is the Driver Configuration structure where some data of the driver is stored
+ *
+ * @return  0 if everything OK
+ * @return -1 at the driver level
+ */
+int moveToPosition(Mcdc3006s & motor, long int position, boolean relative, driverSensor_t * odo)
 {
-    driverSensor_t odo;
-    driverConf_t dc;
+    int aux;
+    int counter = 0;
+    int currentError, oldError;     // Used to measure if the movement is aproaching to its destinity or not
 
-    // Initial driverConf_t dc parameters
-
-    dc.maxPos = 100000; // In pulses of the driver
-    dc.minPos = -100000; // In pulses of the driver
-    dc.maxVel = 1000; // In rpm
-    dc.maxAcc = 200;
-    dc.maxDec = 200;
-
-    int baudrate = 19200;
-//  int baudrate = 9600;
-    char serialDevice[128];
-    int initValue; 		/// Used to monitor the status of the initCommunication() method
-    key_t keySem;
-
-//  int RSd = -1; // Driver File Descriptor
-//  int semID;	//
-
-#ifdef DEBUG   
-    printf ("$AD_HOME is %s\n\r", AD_HOME); //\TODO: Error check here. Exit the program if $AD_HOME is null
-#endif
-
-    if (argc > 1)
-        strcpy(serialDevice, argv[1]);
+    if (relative == FALSE) {
+        if (motor.move_abs_pos(position) == ERR_NOERR)
+            printf("OK. Moving to absolute %ld\n\r", position);
+        else {
+            fprintf(stderr, "There has been an error. moveAbsPos() did not return ERR_NOERR\n\r");
+            return -1;      //Error in the driver
+        }
+    }
     else {
-        strcpy(serialDevice, DEFAULT_SERIAL_DEVICE); //"/dev/brazo_derecho" );
-#ifdef DEBUG
-            printf ("SerialDevice is %s\n\r", serialDevice);
-#endif
-    }
-
-    if (argc > 2)
-        strcpy(dc.sem.semFile, argv[2]);
-    else {
-        strcpy(dc.sem.semFile, AD_HOME);
-        strcat(dc.sem.semFile, DEFAULT_SEMFILE); //"/robot/etc/semDrive" );
+        if (motor.move_rel_pos(position) == ERR_NOERR)
+            printf("OK. Moving to relative %ld\n\r", position);
+        else {
+            fprintf(stderr, "There has been an error. moveRelPos() did not return ERR_NOERR\n\r");
+            return -1;      //Error in the driver
+        }
 
     }
 
-    initValue = initCommunication(baudrate, serialDevice, &dc.RSd, dc.sem.semFile, &dc.sem.semID);
+    motor.get_sensor(odo);
+    currentError = position - odo->p;
 
-    switch(initValue) {
-        case -1:
-            fprintf(stderr, "Could not establish connections with serial port at %s\n\r", serialDevice);
-            return -1;
-            break;
-        case -2:
-            fprintf(stderr, "Could not create semaphore file at %s\n\r", dc.sem.semFile);
-            return -2;
-            break;
-        case -3:
-            fprintf(stderr, "Could not set zero odometry\n\r");
-            return -3;
-            break;
-        case -4:
-            fprintf(stderr, "Semaphore related error\n\r");
-            return -4;
-            break;
-        default:
-            break;
-    }
-
-    setDriverConf(dc);
-
-    // Executing the main menu
-    mainMenu(&odo, &dc);
-
-    // Removing the Semaphore
-    rmSem(dc.sem.semID);
-
+    printf("OK. The driver has arrived to its destination!\n\r");
+    printf("Current driver position: %ld\n\r", odo->p);
+    printf("You introduced: %ld\n\r", position);
     return 0;
 }
 
-/*!
- * \brief  Main Menu. Shows the menu and performs usered entered commands until the user exits de program
- * 
+/**
+ * @brief  Main Menu. Shows the menu and performs usered entered commands until the user exits de program
  */
-void mainMenu(driverSensor_t * odo, driverConf_t * dc)
+void mainMenu(Mcdc3006s & motor, driverSensor_t *odo, driverConf_t *dc)
 {
     driverStatus_t drvStat;
 
@@ -112,8 +89,8 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
     int exit = FALSE;
     int subOptionExit = FALSE;
 
-    long int param; 	// Aux parameter to read/write commands into de driver
-    long int oldPos; 	// Parameter used to store the last position of the driver
+    long int param;     // Aux parameter to read/write commands into de driver
+    long int oldPos;    // Parameter used to store the last position of the driver
 
     do {
         printf("\n\r\n\r");
@@ -134,7 +111,7 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
         printf("Choose an option:");
         scanf("%d", &option);
         printf("\n\r");
-        if (option == 1) { 	//Set/Print Max/Min positinons
+        if (option == 1) {  //Set/Print Max/Min positinons
             do {
                 printf("\n\r\n\r");
                 printf("--- Change or Print Max and Min positions ---\n\r");
@@ -152,9 +129,9 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                         printf("Please write the max position: ");
                         scanf("%ld", &dc->maxPos); // Store the Max Pos keyboard input in the driver Configuration structure
                         printf("\n\r");
-                        if (setDriverMaxPos(dc->RSd, dc->sem.semID, dc->maxPos) == ERR_NOERR) {
-                            if (getDriverMaxPos(dc->RSd, dc->sem.semID) >= ERR_NOERR)
-                                printf("OK. Curent Max Position is: %ld\n\r", getDriverMaxPos(dc->RSd, dc->sem.semID));
+                        if (motor.set_max_pos(dc->maxPos) == ERR_NOERR) {
+                            if (motor.get_max_pos() >= ERR_NOERR)
+                                printf("OK. Curent Max Position is: %ld\n\r", motor.get_max_pos());
                             else
                                 fprintf(stderr, "There has been an error.\n\r");
                         }
@@ -166,21 +143,21 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                         printf("Please write the min position: ");
                         scanf("%ld", &param);
                         printf("\n\r");
-                        if (setDriverMinPos(dc->RSd, dc->sem.semID, param) == ERR_NOERR)
-                            printf("OK. Curent Min Position is: %ld \n\r", getDriverMinPos(dc->RSd, dc->sem.semID));
+                        if (motor.set_min_pos(param) == ERR_NOERR)
+                            printf("OK. Curent Min Position is: %ld \n\r", motor.get_min_pos());
                         else
                             fprintf(stderr, "There has been an error.\n\r");
                         subOptionExit = FALSE;
                         break;
                     case 3:
 
-                        if (getDriverMaxPos(dc->RSd, dc->sem.semID) >= ERR_NOERR) {
+                        if (motor.get_max_pos() >= ERR_NOERR) {
                             printf("MAX Pos: %ld \n\r", dc->maxPos);
                         }
                         else
                             printf("There has been an error getting the max position\n\r");
 
-                        printf("MIN Pos: %ld \n\r", getDriverMinPos(dc->RSd, dc->sem.semID));
+                        printf("MIN Pos: %ld \n\r", motor.get_min_pos());
                         subOptionExit = FALSE;
                         break;
                     case 0:
@@ -194,8 +171,8 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                 }
             }
             while(subOptionExit != TRUE);
-        }										// End Option 1
-        else if (option == 2) {					// Set/Print Max velocity
+        }                                       // End Option 1
+        else if (option == 2) {                 // Set/Print Max velocity
             do {
                 printf("\n\r\n\r");
                 printf("--- Change or Print Max velocity ---\n\r");
@@ -212,14 +189,14 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                         printf("Please write the max velocity: ");
                         scanf("%ld", &param);
                         printf("\n\r");
-                        if (setDriverMaxVel(dc->RSd, dc->sem.semID, param) == ERR_NOERR)
-                            printf("OK. Curent Max velocity is: %ld\n\r", getDriverMaxVel(dc->RSd, dc->sem.semID));
+                        if (motor.set_max_vel(param) == ERR_NOERR)
+                            printf("OK. Curent Max velocity is: %ld\n\r", motor.get_max_vel());
                         else
                             fprintf(stderr, "There has been an error.\n\r");
                         subOptionExit = FALSE;
                         break;
                     case 2:
-                        printf("MAX Velocity: %ld \n\r", getDriverMaxVel(dc->RSd, dc->sem.semID));
+                        printf("MAX Velocity: %ld \n\r", motor.get_max_vel());
                         subOptionExit = FALSE;
                         break;
                     case 0:
@@ -233,8 +210,8 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
             }
             while(subOptionExit != TRUE);
 
-        }										// End Option 2
-        else if (option == 3) {				// Set/Print Max acceleration/deceleration\n\r
+        }                                       // End Option 2
+        else if (option == 3) {             // Set/Print Max acceleration/deceleration\n\r
             do {
                 printf("\n\r\n\r");
                 printf("--- Change or Print Max acceleration ---\n\r");
@@ -251,14 +228,14 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                         printf("Please write the max acceleration: ");
                         scanf("%ld", &param);
                         printf("\n\r");
-                        if (setDriverMaxAcc(dc->RSd, dc->sem.semID, param) == ERR_NOERR)
-                            printf("OK. Curent Max acceleration is: %ld\n\r", getDriverMaxAcc(dc->RSd, dc->sem.semID));
+                        if (motor.set_max_acc(param) == ERR_NOERR)
+                            printf("OK. Curent Max acceleration is: %ld\n\r", motor.get_max_acc());
                         else
                             fprintf(stderr, "There has been an error.\n\r");
                         subOptionExit = FALSE;
                         break;
                     case 2:
-                        printf("MAX acceleration: %ld \n\r", getDriverMaxAcc(dc->RSd, dc->sem.semID));
+                        printf("MAX acceleration: %ld \n\r", motor.get_max_acc());
                         subOptionExit = FALSE;
                         break;
                     case 0:
@@ -271,8 +248,9 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                 }
             }
             while(subOptionExit != TRUE);
-        }		// End option 3
-        else if (option == 4) {	// Set or Print max decceleration
+        }
+        else if (option == 4) {
+            // Set or Print max decceleration
             do {
                 printf("\n\r\n\r");
                 printf("--- Change or Print Max decceleration ---\n\r");
@@ -289,14 +267,14 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                         printf("Please write the max decceleration: ");
                         scanf("%ld", &param);
                         printf("\n\r");
-                        if (setDriverMaxDec(dc->RSd, dc->sem.semID, param) == ERR_NOERR)
-                            printf("OK. Curent Max acceleration is: %ld\n\r", getDriverMaxDec(dc->RSd, dc->sem.semID));
+                        if (motor.set_max_dec(param) == ERR_NOERR)
+                            printf("OK. Curent Max acceleration is: %ld\n\r", motor.get_max_dec());
                         else
                             fprintf(stderr, "There has been an error.\n\r");
                         subOptionExit = FALSE;
                         break;
                     case 2:
-                        printf("MAX acceleration: %ld \n\r", getDriverMaxDec(dc->RSd, dc->sem.semID));
+                        printf("MAX acceleration: %ld \n\r", motor.get_max_dec());
                         subOptionExit = FALSE;
                         break;
                     case 0:
@@ -309,16 +287,16 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                 }
             }
             while(subOptionExit != TRUE);
-        }										// End of option 4
-        else if (option == 5) {					// Option 5: Print Odometry Data
-            getDriverSensor(dc->RSd, dc->sem.semID, odo);
+        }                                       // End of option 4
+        else if (option == 5) {                 // Option 5: Print Odometry Data
+            motor.get_sensor(odo);
             printf("Odometry data:\n\r");
             printf("Current position: %ld \n\r", odo->p);
             printf("Current velocity: %ld \n\r", odo->v); // End of option 5
         }
-        else if (option == 6) {							// Option 6: Do movements
+        else if (option == 6) {                         // Option 6: Do movements
 
-            long int velo; 			// Parameter that will be used store the velocity of the driver (rpm)
+            long int velo;          // Parameter that will be used store the velocity of the driver (rpm)
 
             do {
                 printf("\n\r\n\r");
@@ -334,34 +312,34 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
 
                 switch(subOption) {
 
-                    case 1:				// Move to an absolute position
+                    case 1:             // Move to an absolute position
                         printf("Please write the absolute position in pulses: ");
                         scanf("%ld", &param);
                         printf("\n\r");
 
                         printf("Trying to move to %ld\n\r", param);
-                        if (moveToPosition(param, FALSE, odo, dc) != ERR_NOERR)
+                        if (moveToPosition(motor, param, FALSE, odo) != ERR_NOERR)
                             fprintf(stderr, "There has been an error.\n\r");
 
                         subOptionExit = FALSE;
                         break;
-                    case 2:			//Move to a relative position
+                    case 2:         //Move to a relative position
                         printf("Please write the relative position in pulses: ");
                         scanf("%ld", &param);
                         printf("\n\r");
 
                         printf("Trying to move to %ld\n\r", param);
-                        if (moveToPosition(param, TRUE, odo, dc) != ERR_NOERR)
+                        if (moveToPosition(motor, param, TRUE, odo) != ERR_NOERR)
                             fprintf(stderr, "There has been an error.\n\r");
                         subOptionExit = FALSE;
                         break;
-                    case 3:		// Move by velocity
+                    case 3:     // Move by velocity
 
                         printf("Please write velocity in rpm: ");
                         scanf("%ld", &param);
                         printf("\n\r");
                         printf("Trying to move at %ld rpm\n\r", param);
-                        if (moveVelocity(param, dc) != ERR_NOERR)
+                        if (motor.move_vel(param) != ERR_NOERR)
                             fprintf(stderr, "There has been an error.\n\r");
                         subOptionExit = FALSE;
                         break;
@@ -375,25 +353,25 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
                 }
             }
             while(subOptionExit != TRUE);
-        }												// End of Option 6
-        else if (option == 7) {							// Enable driver
+        }                                               // End of Option 6
+        else if (option == 7) {                         // Enable driver
 
-            if (enableDriver(dc->RSd, dc->sem.semID) != ERR_NOERR) {
+            if (motor.enable_driver() != ERR_NOERR) {
                 fprintf(stderr, "Error while attempting to enable the driver.\n\r");
                 break;
             }
             printf("OK. Driver enabled\n\r");
 
-        }												// End of Option 7
-        else if (option == 8) {							// Disable Driver
-            if (disableDriver(dc->RSd, dc->sem.semID) != ERR_NOERR) {
+        }                                               // End of Option 7
+        else if (option == 8) {                         // Disable Driver
+            if (motor.disable_driver() != ERR_NOERR) {
                 fprintf(stderr, "Error while attempting to disable the driver.\n\r");
                 break;
             }
             printf("OK. Driver disabled\n\r");
-        }												// End of Option 8
-        else if (option == 9) {							// Disable Driver
-            if (getDriverStatus(dc->RSd, dc->sem.semID, &drvStat) != ERR_NOERR) {
+        }                                               // End of Option 8
+        else if (option == 9) {                         // Disable Driver
+            if (motor.get_status(&drvStat) != ERR_NOERR) {
                 fprintf(stderr, "Error reading information from the Driver.\n\r");
                 break;
             }
@@ -404,12 +382,12 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
             printf("Over Voltage: %d\n\r", drvStat.overVoltage);
             printf("Limit Sensor Reached: %d\n\r\n", drvStat.sensorReached);
         }
-        else if (option == 10) {							// Calibrate Driver
-            if (calibrateDriver(dc->RSd, dc->sem.semID, 26535, 4000, 500, 10000) != ERR_NOERR) {
-                fprintf(stderr, "Error calibrating the driver.\n\r");
-                option = -1;
-                break;
-            }
+        else if (option == 10) {                            // Calibrate Driver
+//            if (motor.calibrateDriver(26535, 4000, 500, 10000) != ERR_NOERR) {
+//                fprintf(stderr, "Error calibrating the driver.\n\r");
+//                option = -1;
+//                break;
+//            }
             printf("Calibration succeeded\n\r");
         }
         else if (option != 0) {
@@ -426,75 +404,63 @@ void mainMenu(driverSensor_t * odo, driverConf_t * dc)
     while(exit != TRUE);
 }
 
-/*!
- * \brief   Moves the Driver MCDC3006S to an absolute position.
- *
- * \param position is the position where the driver should move
- * \param relative is a boolean that checks if the movement is relative or not
- * \param odo is the reference to a t_odometry type where the driver odometry is stored
- * \param dc is the Driver Configuration structure where some data of the driver is stored
- *
- * \return  0 if everything OK
- * \return -1 at the driver level
- */
-int moveToPosition(long int position, boolean relative, driverSensor_t * odo, driverConf_t * dc)
-{
-    int aux;
-    int counter = 0;
-    int currentError, oldError; 	// Used to measure if the movement is aproaching to its destinity or not
+//////////////////////////////////////////////////
 
-    if (relative == FALSE) {
-        if (moveDriverAbsPos(dc->RSd, dc->sem.semID, position) == ERR_NOERR)
-            printf("OK. Moving to absolute %ld\n\r", position);
-        else {
-            fprintf(stderr, "There has been an error. moveAbsPos() did not return ERR_NOERR\n\r");
-            return -1;		//Error in the driver
-        }
+int main(int argc, char * argv[])
+{
+    Mcdc3006s motor;
+
+    driverSensor_t odo;
+    driverConf_t dc;
+
+    char *sem = "/tmp/tmpSemaphore";
+
+    // Initial driverConf_t dc parameters
+    dc.maxPos = 100000;     // In pulses of the driver
+    dc.minPos = -100000;    // In pulses of the driver
+    dc.maxVel = 1000;       // In rpm
+    dc.maxAcc = 200;
+    dc.maxDec = 200;
+
+    int baudrate = 19200;
+    char serialDevice[128];
+    key_t keySem;
+
+    if (argc > 1) {
+        strcpy(serialDevice, argv[1]);
     }
     else {
-        if (moveDriverRelPos(dc->RSd, dc->sem.semID, position) == ERR_NOERR)
-            printf("OK. Moving to relative %ld\n\r", position);
-        else {
-            fprintf(stderr, "There has been an error. moveRelPos() did not return ERR_NOERR\n\r");
-            return -1;		//Error in the driver
-        }
-
+        strcpy(serialDevice, DEFAULT_SERIAL_DEVICE);
+        printf("SerialDevice is %s\n\r", serialDevice);
     }
 
-    getDriverSensor(dc->RSd, dc->sem.semID, odo);
-    currentError = position - odo->p;
+    int initValue = motor.init(baudrate, serialDevice, sem);
 
-    printf("OK. The driver has arrived to its destination!\n\r");
-    printf("Current driver position: %ld\n\r", odo->p);
-    printf("You introduced: %ld\n\r", position);
-    return 0;
-}
-
-/**
- * \brief   Moves the Driver MCDC3006S at a determined velocity.
- *  
- * \param velocity is the velocity in rpm at the driver will move
- * \param dc is the Driver Configuration structure where some data of the driver is stored
- * \return  0 if everything OK
- * \return -1 if there is an error at the driver level
- */
-int moveVelocity(long int velocity, driverConf_t * dc)
-{
-    if (moveDriverVel(dc->RSd, dc->sem.semID, velocity) == 0)
-        printf("OK. Moving at %ld rpm\n\r", velocity);
-    else {
-        fprintf(stderr, "There has been an error. moveVel() did not returned 0\n\r");
-        return -1;		//Error in the driver
+    switch(initValue) {
+        case -1:
+            fprintf(stderr, "Could not establish connections with serial port at %s\n\r", serialDevice);
+            return -1;
+            break;
+        case -2:
+            fprintf(stderr, "Could not create semaphore file at %s\n\r", sem);
+            return -2;
+            break;
+        case -3:
+            fprintf(stderr, "Could not set zero odometry\n\r");
+            return -3;
+            break;
+        case -4:
+            fprintf(stderr, "Semaphore related error\n\r");
+            return -4;
+            break;
+        default:
+            break;
     }
 
-    return 0;
-}
+    motor.set_config(dc);
 
-int testMovementMonitor()
-{
-    long int destination;
-    short crashed;
-    int timeOut;
-    int range;
-    int currLimit;
+    // Executing the main menu
+    mainMenu(motor, &odo, &dc);
+
+    return 0;
 }
