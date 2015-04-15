@@ -10,9 +10,9 @@ find_package(catkin REQUIRED COMPONENTS roscpp)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
-  INCLUDE_DIRS src
-  CATKIN_DEPENDS roscpp
-  DEPENDS
+    INCLUDE_DIRS src
+    CATKIN_DEPENDS roscpp
+    DEPENDS
 )
 
 ###########
@@ -20,8 +20,8 @@ catkin_package(
 ###########
 
 include_directories(
-  include src
-  ${catkin_INCLUDE_DIRS}
+    include src
+    ${catkin_INCLUDE_DIRS}
 )
 
 add_subdirectory(src)
@@ -34,7 +34,7 @@ add_subdirectory(src)
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
 install(DIRECTORY src/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
+    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE
 )

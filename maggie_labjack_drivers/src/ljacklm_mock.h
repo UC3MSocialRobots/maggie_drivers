@@ -28,8 +28,10 @@ class MockLjacklmWrapper : public LabjackDriverInterface {
     public:
         MOCK_METHOD0(config, long());
         MOCK_METHOD0(reset, long());
+        
         MOCK_METHOD1(disableWatchdog, long(int activeD));
         MOCK_METHOD1(readDirectionDs, long(long * directions));
+        
         MOCK_METHOD2(readIO, long(long channel, long * state));
         MOCK_METHOD2(writeIO, long(long channel, long state));
         MOCK_METHOD2(readDIOs, long(long * stateD, long * stateIO));
@@ -41,8 +43,10 @@ class MockLjacklmWrapper : public LabjackDriverInterface {
         MOCK_METHOD2(readDifferentialAI, long(long channel, float * voltage));
         MOCK_METHOD2(writeAO, long(int channel, float voltage));
         MOCK_METHOD2(writeAOs, long(float voltageAO0, float voltageAO1));
+        
         MOCK_METHOD3(readAIs, long(long num_channels, long * channels, float * voltages));
         MOCK_METHOD3(enableWatchdog, long(long timeout, int activeD, long state));
+        
         MOCK_METHOD4(writeDIOs, long(long * direcD, long * direcIO, long * stateD, long * stateIO));
         MOCK_METHOD4(writePulse, long(long pulse_level, long line, long pulse_time, long line_type));
 };
