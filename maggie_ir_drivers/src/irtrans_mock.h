@@ -28,5 +28,6 @@ class MockIrTransWrapper : public IrDriverInterface {
     public:
         MOCK_METHOD0(connect, int());
         MOCK_METHOD0(disconnect, void());
+        
         MOCK_METHOD2(send_remote_command, int(std::string remote, std::string command));
 };
