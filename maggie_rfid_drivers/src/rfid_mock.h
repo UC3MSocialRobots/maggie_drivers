@@ -32,9 +32,13 @@ class MockRfidWrapper : public RfidDriverInterface {
         MOCK_METHOD0(get_type_reader, std::string());
         MOCK_METHOD0(get_num_labels, int());
         MOCK_METHOD0(inventory, int());
+        
         MOCK_METHOD1(open_device, int(long num_device));
         MOCK_METHOD1(set_num_labels, void(int num_labels));
+        
         MOCK_METHOD2(read_hf, void(unsigned char data[BLOCK_SIZE_HF], unsigned char uc_db_address));
+        
         MOCK_METHOD3(write_hf, void(unsigned char data[BLOCK_SIZE_HF], unsigned char uc_db_address, std::string uid));
+        
         MOCK_METHOD5(write_tag_epc, int(unsigned char* data, std::string epc, unsigned int mem_bank, unsigned int address, unsigned int num_blocks));
     };
