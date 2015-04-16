@@ -27,18 +27,12 @@
 /**
  * \todo This two defines must be moved to a primitive level
  */
-//#define MCDC3006S_PULSES_PER_REV 2048     // Warning
-//#define MCDC3006S_REDUCTION_FACTOR 123000 /* motorValue = FACTOR * dofValue */
-<<<<<<< HEAD
-#define CALIBRATION_TIMEOUT 5               /**< Calibration timeout in seconds */
-#define CALIBRATION_VELOCITY 400            // Calibration velocity in rpm
+//#define MCDC3006S_PULSES_PER_REV 2048      // Warning
+//#define MCDC3006S_REDUCTION_FACTOR 123000  // motorValue = FACTOR * dofValue
+#define CALIBRATION_TIMEOUT 10              // Calibration timeout in seconds
+#define CALIBRATION_VELOCITY 500            // Calibration velocity in rpm
 #define CALIBRATION_CURRENT_LIMIT 1500      // Calibration limit current in mA
-=======
-#define CALIBRATION_TIMEOUT 10           /**< Calibration timeout in seconds */
-#define CALIBRATION_VELOCITY 500	    // Calibration velocity in rpm
-#define CALIBRATION_CURRENT_LIMIT 1500	    // Calibration limit current in mA
 
->>>>>>> f1c4377a450263d21cc996a505a7c8a634961f96
 #define ACTIVATE 1
 #define DEACTIVATE 0
 
