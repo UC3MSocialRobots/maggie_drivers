@@ -60,4 +60,4 @@ class MockMcdc3006s : public MotorDriverInterface {
         MOCK_METHOD1(calibrate, int(int limit));
 
         MOCK_METHOD3(init, int(int baudrate, char *dev, char *sem));
-    };
+};
