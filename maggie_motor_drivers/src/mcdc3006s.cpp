@@ -717,62 +717,9 @@ int Mcdc3006s::set_home_position(long int home)
     return ERR_NOERR;
 }
 
-//////////////////////////////////////////////////
-
-/**
- int Mcdc3006s::calibrate(int limit)
- {
- ROS_WARN("Start calibration low level - Limit: %d\n", limit);
- // This is the input 4 of the driver. In this input is connected the sensor.
- char calibrationCommand[SP_MSG_SIZE];
- char calibrationResponse[SP_MSG_SIZE];
- int status = 1;
- // Configurating the driver parameters
- sprintf(calibrationCommand, "LCC%d\n\r", CALIBRATION_CURRENT_LIMIT); // LCC: Load Continous Current LPC: Load peak current
- if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
- return ERR_NOHOME;
- }
- sprintf(calibrationCommand, "HL8\n\r");         // HL-bitmask: Block motor when limit switch is active
- if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
- return ERR_NOHOME;
- }
- ROS_INFO("[MCDC3006S] calibrateDriver() --> Starting calibrating the driver");
- sprintf(calibrationCommand, "V%d\n\r", CALIBRATION_VELOCITY);   // V: move robot with target velocity
- if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
- return ERR_NOHOME;
- }
-
- sleep(CALIBRATION_TIMEOUT);
- status = ERR_NOERR; // Timeout reached
- ROS_INFO("[MCDC3006S] calibrateDriver() --> Calibration done");
- // Assuring that the driver stops at this point setting the actual position as target position
-
- moveDriverRelPos(0);
-
- // Moving the driver to the requested home position.
- if (status == ERR_NOERR) {
- ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
- moveDriverRelPos(limit);    // move driver to the requested position (in pulses)
- sleep(3);
- if(setDriverHomePosition(0) == 0) {     //set home position
- moveDriverRelPos(0);
- }
- else {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
- status = ERR_NOHOME;
- }
-
- }
- return (status);
- }
- */
 
 //////////////////////////////////////////////////
 
-//TEST
 int Mcdc3006s::calibrate(int limit)
 {
     // This is the input 4 of the driver. In this input is connected the sensor.
@@ -817,7 +764,6 @@ int Mcdc3006s::calibrate(int limit)
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
             status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
         }
-        ROS_ERROR("Time: %ld", now.tv_sec - before.tv_sec);
     }
     while(status == 1);
 
@@ -842,65 +788,5 @@ int Mcdc3006s::calibrate(int limit)
 
     return (status);
 }
-
-/////////////////////////////////////////////////
-
-/** OLD FUNCTION: not working
-
- int Mcdc3006s::calibrate(long int limit, int current_limit, int calibration_speed, int time_out)
- {
- // This is the input 4 of the driver. In this input is connected the sensor.
- char calibrationCommand[SP_MSG_SIZE];
- char calibrationResponse[SP_MSG_SIZE];
- int status = 1;
- struct timeval before, now;
- // Configurating the driver parameters
- sprintf(calibrationCommand, "LCC%d\n\r", current_limit); // LCC: Load Continous Current LPC: Load peak current
- if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
- return ERR_NOHOME;
- }
- sprintf(calibrationCommand, "HL8\n\r", current_limit);
- if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
- return ERR_NOHOME;
- }
- sprintf(calibrationCommand, "V%d\n\r", calibration_speed);
- if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
- return ERR_NOHOME;
- }
- gettimeofday(&before, 0);
- do {
- _comm.askToRS232("OST\n\r\0", strlen("OST\n\r\0"), calibrationResponse); /// @ToDo Error control here
- gettimeofday(&now, 0);
- if (atoi(calibrationResponse) & DRIVER_INPUT_4_MASK) {
- status = ERR_NOERR; // Sensor Reached OK.
- }
- else if (atoi(calibrationResponse) & CURRENT_LIMITING_MASK) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Current Limit Reached Could not establish home position");
- status = ERR_CURLIM; // Error calibrating the driver (limit current reached)
- }
- else if (timeDifferenceMsec(&before, &now) > time_out) {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
- status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
- }
- }
- while(status == 1);
- // Assuring that the driver stops at this point
- _comm.writeToRS232("V0\n\r\0", strlen("V0\n\r\0"));
- // Moving the driver to 0.
- if (status == ERR_NOERR) {
- if (setDriverHomePosition(limit) == 0) {
- moveDriverAbsPos(0); // Moving to 0 position.
- }
- else {
- ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
- status = ERR_NOHOME;
- }
- }
- return (status);
- }
- **/
 
 //////////////////////////////////////////////////
