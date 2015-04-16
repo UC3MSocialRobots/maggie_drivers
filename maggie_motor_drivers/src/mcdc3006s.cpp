@@ -46,6 +46,7 @@ int Mcdc3006s::init(int baudrate, char *dev, char *sem)
     if ((error = _comm.initCommunication(baudrate, &dev[0], &sem[0])) < 0) {
         ROS_ERROR("[MCDC3006S] initCommunication with devices failed");
         ROS_WARN("[MCDC3006S] baudrate=%d, serialDevice=%s, semFile=%s", baudrate, dev, sem);
+
         return error;
     }
 
@@ -54,12 +55,13 @@ int Mcdc3006s::init(int baudrate, char *dev, char *sem)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::enableDriver()
+int Mcdc3006s::enable_driver()
 {
     char command[] = "EN\n\r\0";
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] EnableDriver() --> Error");
+
         return ERR_WRI;
     }
 
@@ -68,12 +70,13 @@ int Mcdc3006s::enableDriver()
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::disableDriver()
+int Mcdc3006s::disable_driver()
 {
     char command[] = "DI\n\r\0";
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] DisableDriver() --> Error");
+
         return ERR_WRI;
     }
 
@@ -82,41 +85,42 @@ int Mcdc3006s::disableDriver()
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverConf(driverConf_t *dc)
+int Mcdc3006s::get_config(driverConf_t *dc)
 {
-    (*dc).maxPos = getDriverMaxPos();
+    (*dc).maxPos = get_max_pos();
     if (dc->maxPos == ERR_COM) {
         ROS_ERROR("[MCDC3006S] getDriverConf() --> Error reading the configuration from the driver");
         return ERR_COM;
     }
 
-    (*dc).minPos = getDriverMinPos();
+    (*dc).minPos = get_min_pos();
     if (dc->minPos == ERR_COM) {
         ROS_ERROR("[MCDC3006S] getDriverConf() --> Error reading the configuration from the driver");
         return ERR_COM;
     }
 
-    (*dc).maxVel = getDriverMaxVel();
+    (*dc).maxVel = get_max_vel();
     if (dc->maxVel == ERR_COM) {
         ROS_ERROR("[MCDC3006S] getDriverConf() --> Error reading the configuration from the driver");
         return ERR_COM;
     }
 
-    (*dc).maxAcc = getDriverMaxAcc();
+    (*dc).maxAcc = get_max_acc();
     if (dc->maxAcc == ERR_COM) {
         ROS_ERROR("[MCDC3006S] getDriverConf() --> Error reading the configuration from the driver");
         return ERR_COM;
     }
 
-    (*dc).maxDec = getDriverMaxDec();
+    (*dc).maxDec = get_max_dec();
     if (dc->maxDec == ERR_COM) {
         ROS_ERROR("[MCDC3006S] getDriverConf() --> Error reading the configuration from the driver");
         return ERR_COM;
     }
 
-    (*dc).cCLimit = getDriverCurLim();
+    (*dc).cCLimit = get_cur_lim();
     if (dc->maxAcc == ERR_COM) {
         ROS_ERROR("[MCDC3006S] getDriverConf() --> Error reading the configuration from the driver");
+
         return ERR_COM;
     }
 
@@ -125,71 +129,7 @@ int Mcdc3006s::getDriverConf(driverConf_t *dc)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverConf(driverConf_t dc)
-{
-    if (setDriverMinPos(dc.minPos) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
-        return ERR_CONF;
-    }
-    if (setDriverMaxPos(dc.maxPos) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
-        return ERR_CONF;
-    }
-    if (setDriverMaxVel(dc.maxVel) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
-        return ERR_CONF;
-    }
-    if (setDriverMaxAcc(dc.maxAcc) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
-        return ERR_CONF;
-    }
-    if (setDriverMaxDec(dc.maxDec) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
-        return ERR_CONF;
-    }
-
-    return ERR_NOERR;
-}
-
-//////////////////////////////////////////////////
-
-int Mcdc3006s::saveToFlash()
-{
-    char command[SP_MSG_SIZE], response[SP_MSG_SIZE];
-
-    sprintf(command, "EEPSAV\n\r\0");
-    if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] saveToFlash() --> Error. cannot communicate with the driver");
-        return ERR_COM;
-    }
-    fprintf(stderr, "driverMCDC30065S - saveToFlash : %s\n", response);
-
-    return ERR_NOERR;
-}
-
-//////////////////////////////////////////////////
-
-int Mcdc3006s::activateLimits(int action)
-{
-    char command[SP_MSG_SIZE];
-
-    if (action == ACTIVATE || action == DEACTIVATE) {
-        sprintf(command, "APL%d\n\r", action);
-
-        if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
-            ROS_ERROR("[MCDC3006S] activateLimits() --> Error. cannot write to the driver");
-            return ERR_WRI;
-        }
-        return ERR_NOERR;
-    }
-    ROS_ERROR("[MCDC3006S] activateLimits() --> Error Out of range");
-
-    return ERR_OUTOFRANGE;
-}
-
-//////////////////////////////////////////////////
-
-long int Mcdc3006s::getDriverMaxPos()
+long int Mcdc3006s::get_max_pos()
 {
     char command[SP_MSG_SIZE], response[SP_MSG_SIZE];
 
@@ -197,6 +137,7 @@ long int Mcdc3006s::getDriverMaxPos()
 
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverMaxPos() --> Error communicating with driver");
+
         return ERR_COM;
     }
 
@@ -206,7 +147,7 @@ long int Mcdc3006s::getDriverMaxPos()
 
 //////////////////////////////////////////////////
 
-long int Mcdc3006s::getDriverMinPos()
+long int Mcdc3006s::get_min_pos()
 {
     static char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -216,6 +157,7 @@ long int Mcdc3006s::getDriverMinPos()
 
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverMinPos() --> Error when communicating with the driver");
+
         return ERR_COM;
     }
 
@@ -226,7 +168,7 @@ long int Mcdc3006s::getDriverMinPos()
 
 //////////////////////////////////////////////////
 
-long int Mcdc3006s::getDriverMaxVel()
+long int Mcdc3006s::get_max_vel()
 {
     char command[SP_MSG_SIZE]; // "GSP\n\r\0";
     char response[SP_MSG_SIZE];
@@ -235,6 +177,7 @@ long int Mcdc3006s::getDriverMaxVel()
 
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverMaxVel() --> Error communicating with driver");
+
         return ERR_COM;
     }
 
@@ -244,7 +187,7 @@ long int Mcdc3006s::getDriverMaxVel()
 
 //////////////////////////////////////////////////
 
-long int Mcdc3006s::getDriverMaxAcc()
+long int Mcdc3006s::get_max_acc()
 {
     //  long int maxAcc = 0.0;
     char command[SP_MSG_SIZE];
@@ -253,6 +196,7 @@ long int Mcdc3006s::getDriverMaxAcc()
     strcpy(command, "GAC\n\r\0");
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverMaxAcc() --> Error communicating with driver");
+
         return ERR_COM;
     }
 
@@ -262,7 +206,7 @@ long int Mcdc3006s::getDriverMaxAcc()
 
 //////////////////////////////////////////////////
 
-long int Mcdc3006s::getDriverMaxDec()
+long int Mcdc3006s::get_max_dec()
 {
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -271,6 +215,7 @@ long int Mcdc3006s::getDriverMaxDec()
 
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverMaxDec() --> Error communicating with driver");
+
         return ERR_COM;
     }
 
@@ -280,7 +225,7 @@ long int Mcdc3006s::getDriverMaxDec()
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverCurLim()
+int Mcdc3006s::get_cur_lim()
 {
     static char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -289,6 +234,7 @@ int Mcdc3006s::getDriverCurLim()
 
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverCurLim() --> Error communicating with the driver");
+
         return ERR_COM;
     }
 
@@ -297,7 +243,7 @@ int Mcdc3006s::getDriverCurLim()
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverPCurLim()
+int Mcdc3006s::get_peak_cur_lim()
 {
     static char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -306,6 +252,7 @@ int Mcdc3006s::getDriverPCurLim()
 
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverPCurLim() --> Error communicating with the driver");
+
         return ERR_COM;
     }
 
@@ -314,7 +261,7 @@ int Mcdc3006s::getDriverPCurLim()
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverStatus(driverStatus_t * drvStatus)
+int Mcdc3006s::get_status(driverStatus_t * drvStatus)
 {
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -322,13 +269,16 @@ int Mcdc3006s::getDriverStatus(driverStatus_t * drvStatus)
     sprintf(command, "GST\n\r\0");          //
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverStatus() --> Error when communicating with the driver. Could not establish driver status (GST).");
+
         return (ERR_COM);
-    }   // Now response has the driver "status" information
+    }
+    // Now response has the driver "status" information
     drvStatus->disabled = atoi(response) & ENABLED_MASK;
 
     sprintf(command, "OST\n\r\0");          //
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverStatus() --> Error when communicating with the driver. Could not establish driver Operative Status (OST).");
+
         return (ERR_COM);
     } // Now response has the driver "fault status" information
 
@@ -348,7 +298,7 @@ int Mcdc3006s::getDriverStatus(driverStatus_t * drvStatus)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverSensor(driverSensor_t *sensor)
+int Mcdc3006s::get_sensor(driverSensor_t *sensor)
 {
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -386,7 +336,7 @@ int Mcdc3006s::getDriverSensor(driverSensor_t *sensor)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverInstantPos(long int *position)
+int Mcdc3006s::get_instant_pos(long int *position)
 {
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -396,6 +346,7 @@ int Mcdc3006s::getDriverInstantPos(long int *position)
     sprintf(command, "POS\n\r\0");          // Get current Position
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverInstantPos() --> Error when communicating with the driver. Could not establish current position");
+
         return (ERR_COM);
     }
     *position = atol(response);
@@ -405,7 +356,7 @@ int Mcdc3006s::getDriverInstantPos(long int *position)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverInstantVel(long int *velocity)
+int Mcdc3006s::get_instant_vel(long int *velocity)
 {
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -415,6 +366,7 @@ int Mcdc3006s::getDriverInstantVel(long int *velocity)
     sprintf(command, "GV\n\r\0");           // Get Velocity
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverInstantVel() --> Error when communicating with the driver. Could not establish current instant current");
+
         return (ERR_COM);
     }
     *velocity = atol(response);
@@ -424,7 +376,7 @@ int Mcdc3006s::getDriverInstantVel(long int *velocity)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::getDriverInstantCurrent(int *current)
+int Mcdc3006s::get_instant_current(int *current)
 {
     char command[SP_MSG_SIZE];
     char response[SP_MSG_SIZE];
@@ -434,6 +386,7 @@ int Mcdc3006s::getDriverInstantCurrent(int *current)
     sprintf(command, "GRC\n\r\0");          // Get current instant current in mA
     if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] getDriverInstantCurrent() --> Error when communicating with the driver. Could not establish current instant current");
+
         return (ERR_COM);
     }
     *current = atol(response);
@@ -443,37 +396,75 @@ int Mcdc3006s::getDriverInstantCurrent(int *current)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverMaxPos(long int maxPos)
+int Mcdc3006s::set_config(driverConf_t dc)
+{
+    if (set_min_pos(dc.minPos) < ERR_NOERR) {
+        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
+
+        return ERR_CONF;
+    }
+    if (set_max_pos(dc.maxPos) < ERR_NOERR) {
+        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
+
+        return ERR_CONF;
+    }
+    if (set_max_vel(dc.maxVel) < ERR_NOERR) {
+        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
+
+        return ERR_CONF;
+    }
+    if (set_max_acc(dc.maxAcc) < ERR_NOERR) {
+        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
+
+        return ERR_CONF;
+    }
+    if (set_max_dec(dc.maxDec) < ERR_NOERR) {
+        ROS_ERROR("[MCDC3006S] setDriverConf() --> Error setting the minimum position");
+
+        return ERR_CONF;
+    }
+
+    return ERR_NOERR;
+}
+
+//////////////////////////////////////////////////
+
+int Mcdc3006s::set_max_pos(long int maxPos)
 {
     char command[SP_MSG_SIZE];
 
     if (maxPos <= 0) {
         fprintf(stderr, "setDriveMaxPos --> ERROR. Out of range: "
             "maxPos must be higher than 0 (You entered %ld).\n\r", maxPos);
+
         return ERR_OUTOFRANGE;
     }
     sprintf(command, "LL%ld\n\r\0", maxPos);
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMaxPos() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
-    if (activateLimits(ACTIVATE) < ERR_NOERR) {
+    if (activate_limits(ACTIVATE) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMaxPos() --> Error activating the driver");
+
         return ERR_POSLIMIT;
     }
+
     return ERR_NOERR;
 }
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverMinPos(long int minPos)
+int Mcdc3006s::set_min_pos(long int minPos)
 {
     char command[SP_MSG_SIZE];
 
     if (minPos >= 0) {
         fprintf(stderr, "setDriveMinPos --> ERROR. minPos must be lower than 0 (You entered %ld).\n\r", minPos);
+
         return ERR_OUTOFRANGE;
     }
 
@@ -481,11 +472,13 @@ int Mcdc3006s::setDriverMinPos(long int minPos)
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMinPos() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
-    if (activateLimits(ACTIVATE) < ERR_NOERR) {
+    if (activate_limits(ACTIVATE) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMaxPos() --> Error activating the driver");
+
         return ERR_POSLIMIT;
     }
 
@@ -494,7 +487,7 @@ int Mcdc3006s::setDriverMinPos(long int minPos)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverMaxVel(long int maxVel)
+int Mcdc3006s::set_max_vel(long int maxVel)
 {
     char command[SP_MSG_SIZE];
 
@@ -502,6 +495,7 @@ int Mcdc3006s::setDriverMaxVel(long int maxVel)
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMaxVel() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
@@ -510,7 +504,7 @@ int Mcdc3006s::setDriverMaxVel(long int maxVel)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverMaxAcc(long int maxAcc)
+int Mcdc3006s::set_max_acc(long int maxAcc)
 {
     char command[SP_MSG_SIZE];
 
@@ -518,6 +512,7 @@ int Mcdc3006s::setDriverMaxAcc(long int maxAcc)
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMaxAcc() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
@@ -526,7 +521,7 @@ int Mcdc3006s::setDriverMaxAcc(long int maxAcc)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverMaxDec(long int maxDec)
+int Mcdc3006s::set_max_dec(long int maxDec)
 {
     char command[SP_MSG_SIZE];
 
@@ -534,6 +529,7 @@ int Mcdc3006s::setDriverMaxDec(long int maxDec)
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverMaxDec() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
@@ -542,7 +538,7 @@ int Mcdc3006s::setDriverMaxDec(long int maxDec)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverCurLim(int cl)
+int Mcdc3006s::set_cur_lim(int cl)
 {
     char command[SP_MSG_SIZE];
 
@@ -550,6 +546,7 @@ int Mcdc3006s::setDriverCurLim(int cl)
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverCurLim() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
@@ -558,7 +555,7 @@ int Mcdc3006s::setDriverCurLim(int cl)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverPCurLim(int pcl)
+int Mcdc3006s::set_peak_cur_lim(int pcl)
 {
     char command[SP_MSG_SIZE];
 
@@ -566,6 +563,7 @@ int Mcdc3006s::setDriverPCurLim(int pcl)
 
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverPCurLim() --> Error writing to the driver");
+
         return ERR_WRI;
     }
 
@@ -574,7 +572,7 @@ int Mcdc3006s::setDriverPCurLim(int pcl)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverBaud(int baud)
+int Mcdc3006s::set_baudrate(int baud)
 {
     int c = -1;
     int n;
@@ -590,10 +588,12 @@ int Mcdc3006s::setDriverBaud(int baud)
     }
     else {
         fprintf(stderr, "driverMCDC3006S - setDriverBaud ERROR %d not supported\n\r", baud);
+
         return ERR_OUTOFRANGE;
     }
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] setDriverCurLim() --> Error writing to the driver\n\r");
+
         return ERR_WRI;
     }
 
@@ -602,19 +602,21 @@ int Mcdc3006s::setDriverBaud(int baud)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::moveDriverAbsPos(long int pos)
+int Mcdc3006s::move_abs_pos(long int pos)
 {
     char command[SP_MSG_SIZE]; // = "LA";
 
     sprintf(command, "LA%ld\n\r\0", pos);
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] moveDriverAbsPos() --> Error writing to the driver\n\r");
+
         return ERR_WRI;
     }
 
     sprintf(command, "M\n\r\0");
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] moveDriverAbsPos() --> Error writing to the driver\n\r");
+
         return ERR_WRI;
     }
 
@@ -623,19 +625,21 @@ int Mcdc3006s::moveDriverAbsPos(long int pos)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::moveDriverRelPos(long int pos)
+int Mcdc3006s::move_rel_pos(long int pos)
 {
     char command[SP_MSG_SIZE]; // = "LR";
 
     sprintf(command, "LR%ld\n\r\0", pos);
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] moveDriverRelPos() --> Error writing to the driver\n\r");
+
         return ERR_WRI;
     }
 
     sprintf(command, "M\n\r\0");
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] moveDriverRelPos() --> Error writing to the driver\n\r");
+
         return ERR_WRI;
     }
 
@@ -644,13 +648,14 @@ int Mcdc3006s::moveDriverRelPos(long int pos)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::moveDriverVel(long int vel)
+int Mcdc3006s::move_vel(long int vel)
 {
     char command[SP_MSG_SIZE];
 
     sprintf(command, "V%ld\n\r\0", vel);
     if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
         ROS_ERROR("[MCDC3006S] moveDriverVel() --> Error writing to the driver\n\r");
+
         return ERR_WRI;
     }
 
@@ -659,13 +664,53 @@ int Mcdc3006s::moveDriverVel(long int vel)
 
 //////////////////////////////////////////////////
 
-int Mcdc3006s::setDriverHomePosition(long int home)
+int Mcdc3006s::save_to_flash()
+{
+    char command[SP_MSG_SIZE], response[SP_MSG_SIZE];
+
+    sprintf(command, "EEPSAV\n\r\0");
+    if (_comm.askToRS232(command, strlen(command), response) < ERR_NOERR) {
+        ROS_ERROR("[MCDC3006S] saveToFlash() --> Error. cannot communicate with the driver");
+
+        return ERR_COM;
+    }
+    fprintf(stderr, "driverMCDC30065S - saveToFlash : %s\n", response);
+
+    return ERR_NOERR;
+}
+
+//////////////////////////////////////////////////
+
+int Mcdc3006s::activate_limits(int action)
+{
+    char command[SP_MSG_SIZE];
+
+    if (action == ACTIVATE || action == DEACTIVATE) {
+        sprintf(command, "APL%d\n\r", action);
+
+        if (_comm.writeToRS232(command, strlen(command)) < ERR_NOERR) {
+            ROS_ERROR("[MCDC3006S] activateLimits() --> Error. cannot write to the driver");
+
+            return ERR_WRI;
+        }
+
+        return ERR_NOERR;
+    }
+    ROS_ERROR("[MCDC3006S] activateLimits() --> Error Out of range");
+
+    return ERR_OUTOFRANGE;
+}
+
+//////////////////////////////////////////////////
+
+int Mcdc3006s::set_home_position(long int home)
 {
     char command[SP_MSG_SIZE];
     sprintf(command, "HO%ld\n\r", home);
 
     if (_comm.writeToRS232(command, strlen(command))) {
         ROS_ERROR("[MCDC3006S] setDriverHomePosition() --> Error\n\r");
+
         return ERR_WRI;
     }
 
@@ -673,69 +718,62 @@ int Mcdc3006s::setDriverHomePosition(long int home)
 }
 
 //////////////////////////////////////////////////
+
 /**
-int Mcdc3006s::calibrateDriver(int limit)
-{
-    ROS_WARN("Start calibration low level - Limit: %d\n", limit);
+ int Mcdc3006s::calibrate(int limit)
+ {
+ ROS_WARN("Start calibration low level - Limit: %d\n", limit);
+ // This is the input 4 of the driver. In this input is connected the sensor.
+ char calibrationCommand[SP_MSG_SIZE];
+ char calibrationResponse[SP_MSG_SIZE];
+ int status = 1;
+ // Configurating the driver parameters
+ sprintf(calibrationCommand, "LCC%d\n\r", CALIBRATION_CURRENT_LIMIT); // LCC: Load Continous Current LPC: Load peak current
+ if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
+ return ERR_NOHOME;
+ }
+ sprintf(calibrationCommand, "HL8\n\r");         // HL-bitmask: Block motor when limit switch is active
+ if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
+ return ERR_NOHOME;
+ }
+ ROS_INFO("[MCDC3006S] calibrateDriver() --> Starting calibrating the driver");
+ sprintf(calibrationCommand, "V%d\n\r", CALIBRATION_VELOCITY);   // V: move robot with target velocity
+ if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
+ return ERR_NOHOME;
+ }
 
-    // This is the input 4 of the driver. In this input is connected the sensor.
-    char calibrationCommand[SP_MSG_SIZE];
-    char calibrationResponse[SP_MSG_SIZE];
+ sleep(CALIBRATION_TIMEOUT);
+ status = ERR_NOERR; // Timeout reached
+ ROS_INFO("[MCDC3006S] calibrateDriver() --> Calibration done");
+ // Assuring that the driver stops at this point setting the actual position as target position
 
-    int status = 1;
+ moveDriverRelPos(0);
 
-    // Configurating the driver parameters
-    sprintf(calibrationCommand, "LCC%d\n\r", CALIBRATION_CURRENT_LIMIT); // LCC: Load Continous Current LPC: Load peak current
-    if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
-        return ERR_NOHOME;
-    }
+ // Moving the driver to the requested home position.
+ if (status == ERR_NOERR) {
+ ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
+ moveDriverRelPos(limit);    // move driver to the requested position (in pulses)
+ sleep(3);
+ if(setDriverHomePosition(0) == 0) {     //set home position
+ moveDriverRelPos(0);
+ }
+ else {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
+ status = ERR_NOHOME;
+ }
 
-    sprintf(calibrationCommand, "HL8\n\r");			// HL-bitmask: Block motor when limit switch is active 
-    if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
-        return ERR_NOHOME;
-    }
+ }
+ return (status);
+ }
+ */
 
-	ROS_INFO("[MCDC3006S] calibrateDriver() --> Starting calibrating the driver");
-
-    sprintf(calibrationCommand, "V%d\n\r", CALIBRATION_VELOCITY);	// V: move robot with target velocity 
-    if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
-        return ERR_NOHOME;
-    }
-
-    
-    sleep(CALIBRATION_TIMEOUT);
-    status = ERR_NOERR; // Timeout reached
-    ROS_INFO("[MCDC3006S] calibrateDriver() --> Calibration done");
-
-    // Assuring that the driver stops at this point setting the actual position as target position
-	
-	moveDriverRelPos(0);
-	
-    // Moving the driver to the requested home position.
-    if (status == ERR_NOERR) {
-			ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
-			moveDriverRelPos(limit);	// move driver to the requested position (in pulses)
-			sleep(3);
-			if(setDriverHomePosition(0) == 0) {		//set home position
-				moveDriverRelPos(0);
-			}
-			else {
-				ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
-				status = ERR_NOHOME;
-			}
-		
-	}
-    return (status);
-}
-*/
 //////////////////////////////////////////////////
 
 //TEST
-
-int Mcdc3006s::calibrateDriver(int limit)
+int Mcdc3006s::calibrate(int limit)
 {
     // This is the input 4 of the driver. In this input is connected the sensor.
     char calibrationCommand[SP_MSG_SIZE];
@@ -779,7 +817,6 @@ int Mcdc3006s::calibrateDriver(int limit)
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
             status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
         }
-        ROS_ERROR("time: %ld", now.tv_sec - before.tv_sec);
     }
     while(status == 1);
 
@@ -790,16 +827,16 @@ int Mcdc3006s::calibrateDriver(int limit)
     if (status == ERR_NOERR) {
 
         ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
-			moveDriverRelPos(limit);	// move driver to the requested position (in pulses)
-			sleep(3);
-			if(setDriverHomePosition(0) == 0) {		//set home position
-				moveDriverRelPos(0);
-			}
-			else {
-				ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
-				status = ERR_NOHOME;
-			}
-		
+        move_rel_pos(limit);    // move driver to the requested position (in pulses)
+        sleep(3);
+        if (set_home_position(0) == 0) {     //set home position
+            move_rel_pos(0);
+        }
+        else {
+            ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
+            status = ERR_NOHOME;
+        }
+
     }
 
     return (status);
@@ -808,70 +845,61 @@ int Mcdc3006s::calibrateDriver(int limit)
 /////////////////////////////////////////////////
 
 /** OLD FUNCTION: not working
-  
-int Mcdc3006s::calibrateDriver(long int limit, int current_limit, int calibration_speed, int time_out)
-{
-    // This is the input 4 of the driver. In this input is connected the sensor.
-    char calibrationCommand[SP_MSG_SIZE];
-    char calibrationResponse[SP_MSG_SIZE];
 
-    int status = 1;
-    struct timeval before, now;
+ int Mcdc3006s::calibrate(long int limit, int current_limit, int calibration_speed, int time_out)
+ {
+ // This is the input 4 of the driver. In this input is connected the sensor.
+ char calibrationCommand[SP_MSG_SIZE];
+ char calibrationResponse[SP_MSG_SIZE];
+ int status = 1;
+ struct timeval before, now;
+ // Configurating the driver parameters
+ sprintf(calibrationCommand, "LCC%d\n\r", current_limit); // LCC: Load Continous Current LPC: Load peak current
+ if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
+ return ERR_NOHOME;
+ }
+ sprintf(calibrationCommand, "HL8\n\r", current_limit);
+ if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
+ return ERR_NOHOME;
+ }
+ sprintf(calibrationCommand, "V%d\n\r", calibration_speed);
+ if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
+ return ERR_NOHOME;
+ }
+ gettimeofday(&before, 0);
+ do {
+ _comm.askToRS232("OST\n\r\0", strlen("OST\n\r\0"), calibrationResponse); /// @ToDo Error control here
+ gettimeofday(&now, 0);
+ if (atoi(calibrationResponse) & DRIVER_INPUT_4_MASK) {
+ status = ERR_NOERR; // Sensor Reached OK.
+ }
+ else if (atoi(calibrationResponse) & CURRENT_LIMITING_MASK) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Current Limit Reached Could not establish home position");
+ status = ERR_CURLIM; // Error calibrating the driver (limit current reached)
+ }
+ else if (timeDifferenceMsec(&before, &now) > time_out) {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
+ status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
+ }
+ }
+ while(status == 1);
+ // Assuring that the driver stops at this point
+ _comm.writeToRS232("V0\n\r\0", strlen("V0\n\r\0"));
+ // Moving the driver to 0.
+ if (status == ERR_NOERR) {
+ if (setDriverHomePosition(limit) == 0) {
+ moveDriverAbsPos(0); // Moving to 0 position.
+ }
+ else {
+ ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
+ status = ERR_NOHOME;
+ }
+ }
+ return (status);
+ }
+ **/
 
-    // Configurating the driver parameters
-    sprintf(calibrationCommand, "LCC%d\n\r", current_limit); // LCC: Load Continous Current LPC: Load peak current
-    if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
-        return ERR_NOHOME;
-    }
-
-    sprintf(calibrationCommand, "HL8\n\r", current_limit);
-    if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
-        return ERR_NOHOME;
-    }
-
-    sprintf(calibrationCommand, "V%d\n\r", calibration_speed);
-    if (_comm.writeToRS232(calibrationCommand, strlen(calibrationCommand)) < ERR_NOERR) {
-        ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error\n\r");
-        return ERR_NOHOME;
-    }
-
-    gettimeofday(&before, 0);
-    do {
-        _comm.askToRS232("OST\n\r\0", strlen("OST\n\r\0"), calibrationResponse); /// @ToDo Error control here
-        gettimeofday(&now, 0);
-
-        if (atoi(calibrationResponse) & DRIVER_INPUT_4_MASK) {
-            status = ERR_NOERR; // Sensor Reached OK.
-        }
-        else if (atoi(calibrationResponse) & CURRENT_LIMITING_MASK) {
-            ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Current Limit Reached Could not establish home position");
-            status = ERR_CURLIM; // Error calibrating the driver (limit current reached)
-        }
-        else if (timeDifferenceMsec(&before, &now) > time_out) {
-            ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
-            status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
-        }
-    }
-    while(status == 1);
-
-    // Assuring that the driver stops at this point
-    _comm.writeToRS232("V0\n\r\0", strlen("V0\n\r\0"));
-
-    // Moving the driver to 0.
-    if (status == ERR_NOERR) {
-
-        if (setDriverHomePosition(limit) == 0) {
-            moveDriverAbsPos(0); // Moving to 0 position.
-        }
-        else {
-            ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
-            status = ERR_NOHOME;
-        }
-    }
-
-    return (status);
-}
-**/
 //////////////////////////////////////////////////
