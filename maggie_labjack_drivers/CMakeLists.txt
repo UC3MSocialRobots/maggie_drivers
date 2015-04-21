@@ -4,6 +4,11 @@ project(maggie_labjack_drivers)
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS roscpp)
 
+# install third parties
+execute_process(COMMAND sudo bash install.bash
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/third_parties/
+)
+
 ###################################
 ## catkin specific configuration ##
 ###################################

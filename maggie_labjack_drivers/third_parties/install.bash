@@ -8,16 +8,6 @@
 #   U12 Driver in C language for Linux
 #   http://labjack.com/support/u12/ljacklm
 
-# External, ROS and system package dependencies
-
-# With this snippet the user now can use sh/bash or any sh like interpreter to run a bash script
-if [ -z "$BASH_VERSION" ]
-then
-    exec bash "$0" "$@"
-fi
-
-clear
-
 # install dependencies
 echo "INSTALLING DEPENDENCIES..."
 echo
@@ -35,26 +25,22 @@ echo
 echo "INSTALLING EXODRIVER..."
 echo
 
-cd `rospack find maggie_labjack_drivers`/third_parties/
+cd /tmp
 git clone git://github.com/labjack/exodriver.git
 cd exodriver/
 
-echo "WARNING! MODIFY FIRST THE install.sh FILE (LINE 193)"
-echo "'usermod -a -G \$GROUP \$USER'"
-echo "PRESS ENTER TO CONTINUE"
-echo
-read
-
-sudo sh install.sh
+# solve bug
+sed -i "193s/usermod.*/usermod -a -G \$GROUP \$USER/" install.sh
+sudo bash install.sh
 
 echo "FINISH!"
 echo
 
-# get source code and install labjack driver (C)
+# get source code and install labjack driver (C lang)
 echo "INSTALLING LJACKLM DRIVER..."
 echo
 
-cd `rospack find maggie_labjack_drivers`/third_parties/
+cd /tmp
 wget http://labjack.com/sites/default/files/2013/10/ljacklm.zip
 
 unzip ljacklm.zip
@@ -65,11 +51,11 @@ sudo make install
 echo "FINISH!"
 echo
 
-# get source code and install labjack driver (python)
+# get source code and install labjack driver (python lang)
 echo "INSTALLING LABJACKPYTHON DRIVER..."
 echo
 
-cd `rospack find maggie_labjack_drivers`/third_parties/
+cd /tmp
 git clone git://github.com/labjack/LabJackPython.git
 cd LabJackPython/
 sudo python setup.py install

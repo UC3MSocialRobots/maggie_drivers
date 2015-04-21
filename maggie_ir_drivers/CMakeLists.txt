@@ -5,7 +5,7 @@ project(maggie_ir_drivers)
 find_package(catkin REQUIRED COMPONENTS roscpp)
 
 # install third parties
-execute_process(COMMAND sudo bash install.sh
+execute_process(COMMAND sudo bash install.bash
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/third_parties/IRTrans_shlib/
 )
 
