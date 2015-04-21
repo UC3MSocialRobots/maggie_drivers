@@ -34,6 +34,8 @@
     <exec_depend>roscpp</exec_depend>
     <build_depend>libusb-1.0-dev</build_depend>
     <exec_depend>libusb-1.0-dev</exec_depend>
+    <build_depend>unzip</build_depend>
+    <exec_depend>unzip</exec_depend>
 
     <!-- tests dependencies -->
     <test_depend>gtest</test_depend>
