@@ -1,6 +1,5 @@
-LINUX USB Driver
-Already included in LINUX Kernel versions >= 2.4.25 / 2.6.05
+IRTrans API Shared lib
 
-Version: 21.04.04
+Version: 21.05.09
 
 Downloaded from: http://www.irtrans.de/en/download/linux.php
