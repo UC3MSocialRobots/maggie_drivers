@@ -8,19 +8,6 @@
 #   U12 Driver in C language for Linux
 #   http://labjack.com/support/u12/ljacklm
 
-# install dependencies
-echo "INSTALLING DEPENDENCIES..."
-echo
-
-PACKAGES="build-essential
-          libusb-1.0-0-dev
-          git-core"
-
-sudo apt-get install $PACKAGES
-
-echo "FINISH!"
-echo
-
 # get source code and install exodriver
 echo "INSTALLING EXODRIVER..."
 echo

@@ -32,6 +32,8 @@
     <!-- ROS packages dependencies -->
     <build_depend>roscpp</build_depend>
     <exec_depend>roscpp</exec_depend>
+    <build_depend>libusb-1.0-dev</build_depend>
+    <exec_depend>libusb-1.0-dev</exec_depend>
 
     <!-- tests dependencies -->
     <test_depend>gtest</test_depend>
