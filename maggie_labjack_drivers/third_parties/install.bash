@@ -8,7 +8,7 @@
 #   U12 Driver in C language for Linux
 #   http://labjack.com/support/u12/ljacklm
 
-# get source code and install exodriver
+### get source code and install exodriver
 echo "INSTALLING EXODRIVER..."
 echo
 
@@ -21,10 +21,13 @@ cd exodriver/
 sed -i "193s/usermod.*/usermod -a -G \$GROUP \$USER/" install.sh
 sudo bash install.sh
 
+# config links
+ldconfig
+
 echo "FINISH!"
 echo
 
-# get source code and install labjack driver (C lang)
+### get source code and install labjack driver (C lang)
 echo "INSTALLING LJACKLM DRIVER..."
 echo
 
@@ -37,10 +40,13 @@ cd ljacklm/libljacklm/
 make
 sudo make install
 
+# config links
+ldconfig
+
 echo "FINISH!"
 echo
 
-# get source code and install labjack driver (python lang)
+### get source code and install labjack driver (python lang)
 echo "INSTALLING LABJACKPYTHON DRIVER..."
 echo
 
@@ -49,6 +55,9 @@ rm -fr LabJackPython*
 git clone git://github.com/labjack/LabJackPython.git
 cd LabJackPython/
 sudo python setup.py install
+
+# config links
+ldconfig
 
 echo "FINISH!"
 echo
