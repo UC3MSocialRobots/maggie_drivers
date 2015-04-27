@@ -13,6 +13,7 @@ echo "INSTALLING EXODRIVER..."
 echo
 
 cd /tmp
+rm -fr exodriver
 git clone git://github.com/labjack/exodriver.git
 cd exodriver/
 
@@ -28,6 +29,7 @@ echo "INSTALLING LJACKLM DRIVER..."
 echo
 
 cd /tmp
+rm -fr ljacklm*
 wget http://labjack.com/sites/default/files/2013/10/ljacklm.zip
 
 unzip ljacklm.zip
