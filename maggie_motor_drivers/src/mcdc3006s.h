@@ -27,9 +27,8 @@
  */
 
 #include <ros/ros.h>
-
+#include <serial_port/rs232.h>
 #include "motor_driver_interface.h"
-#include "serial_port/rs232.h"
 
 class Mcdc3006s : public MotorDriverInterface {
     public:
