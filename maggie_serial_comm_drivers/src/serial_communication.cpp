@@ -23,7 +23,7 @@
  * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
-#include "serial_communication.h"
+#include "maggie_serial_comm_drivers/serial_communication.h"
 
 //////////////////////////////////////////////////
 

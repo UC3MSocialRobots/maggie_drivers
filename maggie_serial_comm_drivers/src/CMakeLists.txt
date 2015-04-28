@@ -1,5 +1,5 @@
 add_library(serial_communication
-            serial_communication.cpp serial_communication.h serial_communication_interface.h)
+            serial_communication.cpp)
 target_link_libraries(serial_communication
                       ${catkin_LIBRARIES})
 

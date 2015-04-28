@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
-    INCLUDE_DIRS src
+    INCLUDE_DIRS include
     CATKIN_DEPENDS roscpp
     DEPENDS
 )
@@ -38,6 +38,5 @@ ADD_SUBDIRECTORY(src)
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-    FILES_MATCHING PATTERN "*.h"
     PATTERN ".svn" EXCLUDE
 )
