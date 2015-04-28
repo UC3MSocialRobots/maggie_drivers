@@ -31,7 +31,7 @@
  */
 
 #include <ros/ros.h>
-#include "ljacklm.h"
+#include <ljacklm.h>
 #include "labjack_driver_interface.h"
 
 // set the I/O lines
