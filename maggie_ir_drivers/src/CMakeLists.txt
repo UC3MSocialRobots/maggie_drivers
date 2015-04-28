@@ -1,5 +1,5 @@
 add_library(irtrans_wrapper
-            irtrans_wrapper.cpp irtrans_wrapper.h ir_driver_interface.h)
+            irtrans_wrapper.cpp)
 target_link_libraries(irtrans_wrapper
                       IRTrans ${catkin_LIBRARIES})
 
