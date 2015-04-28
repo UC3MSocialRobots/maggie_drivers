@@ -27,6 +27,7 @@
 #include <ros/ros.h>
 #include "ir_driver_interface.h"
 
+// third party driver headers
 #define LINUX
 extern "C" {
 #include <IRTrans.h>
