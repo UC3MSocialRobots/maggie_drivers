@@ -717,7 +717,6 @@ int Mcdc3006s::set_home_position(long int home)
     return ERR_NOERR;
 }
 
-
 //////////////////////////////////////////////////
 
 int Mcdc3006s::calibrate(int limit)
@@ -750,7 +749,10 @@ int Mcdc3006s::calibrate(int limit)
 
     gettimeofday(&before, 0);
     do {
-        _comm.askToRS232("OST\n\r\0", strlen("OST\n\r\0"), calibrationResponse); /// @ToDo Error control here
+        char *str_tmp;
+        strcpy(str_tmp, "OST\n\r\0");
+
+        _comm.askToRS232(str_tmp, strlen(str_tmp), calibrationResponse); /// @ToDo Error control here
         gettimeofday(&now, 0);
 
         if (atoi(calibrationResponse) & DRIVER_INPUT_4_MASK) {
@@ -768,14 +770,18 @@ int Mcdc3006s::calibrate(int limit)
     while(status == 1);
 
     // Assuring that the driver stops at this point
-    _comm.writeToRS232("V0\n\r\0", strlen("V0\n\r\0"));
+    char *str_tmp1;
+    strcpy(str_tmp1, "V0\n\r\0");
+    _comm.writeToRS232(str_tmp1, strlen(str_tmp1));
 
     // Moving the driver to 0.
     if (status == ERR_NOERR) {
-
         ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
+
         move_rel_pos(limit);    // move driver to the requested position (in pulses)
+
         sleep(3);
+
         if (set_home_position(0) == 0) {     //set home position
             move_rel_pos(0);
         }
@@ -783,7 +789,6 @@ int Mcdc3006s::calibrate(int limit)
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Could not establish home position");
             status = ERR_NOHOME;
         }
-
     }
 
     return (status);

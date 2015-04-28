@@ -413,7 +413,8 @@ int main(int argc, char * argv[])
     driverSensor_t odo;
     driverConf_t dc;
 
-    char *sem = "/tmp/tmpSemaphore";
+    char *sem;
+    strcpy(sem, "/tmp/tmpSemaphore");
 
     // Initial driverConf_t dc parameters
     dc.maxPos = 100000;     // In pulses of the driver
