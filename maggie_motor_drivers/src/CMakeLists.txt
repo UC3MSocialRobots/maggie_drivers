@@ -1,5 +1,5 @@
 add_library(mcdc3006s
-            mcdc3006s.cpp mcdc3006s.h mcdc3006s_data.h motor_driver_interface.h)
+            mcdc3006s.cpp)
 target_link_libraries(mcdc3006s
                       semaphores rs232 ${catkin_LIBRARIES})
 

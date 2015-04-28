@@ -23,7 +23,7 @@
  * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
-#include "../mcdc3006s.h"
+#include "maggie_motor_drivers/mcdc3006s.h"
 
 #define TRUE 1
 #define FALSE 0
