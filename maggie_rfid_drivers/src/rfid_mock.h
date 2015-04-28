@@ -21,7 +21,7 @@
  * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
-#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 #include "rfid_driver_interface.h"
 
 class MockRfidWrapper : public RfidDriverInterface {

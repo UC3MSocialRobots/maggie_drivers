@@ -21,7 +21,7 @@
  * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
-#include "gmock/gmock.h"
+#include <gmock/gmock.h>
 #include "serial_communication_interface.h"
 
 class MockSerialCommunication : public SerialCommunicationInterface {
