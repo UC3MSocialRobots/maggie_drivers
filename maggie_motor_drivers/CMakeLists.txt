@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.8.3)
 project(maggie_motor_drivers)
 
 ## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS sr_communications roscpp)
 
 ###################################
@@ -12,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS sr_communications roscpp)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
-    INCLUDE_DIRS include src
+    INCLUDE_DIRS include
     CATKIN_DEPENDS roscpp
     DEPENDS sr_communications
 )
