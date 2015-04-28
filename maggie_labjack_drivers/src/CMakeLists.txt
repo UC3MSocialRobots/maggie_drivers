@@ -1,5 +1,5 @@
 add_library(ljacklm_wrapper
-            ljacklm_wrapper.cpp ljacklm_wrapper.h labjack_driver_interface.h)
+            ljacklm_wrapper.cpp)
 target_link_libraries(ljacklm_wrapper
                       ljacklm m ${catkin_LIBRARIES})
 

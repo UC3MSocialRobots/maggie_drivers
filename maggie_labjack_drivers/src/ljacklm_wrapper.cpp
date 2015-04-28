@@ -27,7 +27,7 @@
  * A copy of the Licencia Educativa UC3M is in the LICENSE file.
  */
 
-#include "ljacklm_wrapper.h"
+#include "maggie_labjack_drivers/ljacklm_wrapper.h"
 
 //////////////////////////////////////////////////
 
