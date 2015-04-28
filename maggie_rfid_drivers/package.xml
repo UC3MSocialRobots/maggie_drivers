@@ -41,6 +41,7 @@
     <!-- The export tag contains other, unspecified, tags -->
     <export>
         <!-- Set the include and linker folders -->
-        <cpp cflags="-I/usr/local/include/rfid -I${prefix} -I${prefix}/build -Wall" lflags="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L${prefix}/lib -Wl,-rpath,${prefix}/lib" />
+        <cpp cflags="-I/usr/local/include/rfid -I${prefix} -I${prefix}/build -Wall"
+            lflags="-L/usr/local/lib -Wl,-rpath,/usr/local/lib -L${prefix}/lib -Wl,-rpath,${prefix}/lib" />
     </export>
 </package>

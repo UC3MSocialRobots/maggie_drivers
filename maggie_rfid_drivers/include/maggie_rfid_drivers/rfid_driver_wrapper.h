@@ -29,7 +29,7 @@
 #include <ros/ros.h>
 #include "rfid_driver_interface.h"
 
-// rfid driver headers
+// third party driver headers
 #include <feusb.h>
 #include <feisc.h>
 #include <FedmIscCore.h>

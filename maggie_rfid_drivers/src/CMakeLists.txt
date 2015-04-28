@@ -1,5 +1,5 @@
 add_library(rfid_driver_wrapper
-            rfid_driver_wrapper.cpp rfid_driver_wrapper.h rfid_driver_data.h rfid_driver_interface.h)
+            rfid_driver_wrapper.cpp)
 target_link_libraries(rfid_driver_wrapper
                       feusb feisc FedmIscCore fecom fefu ${catkin_LIBRARIES})
 
