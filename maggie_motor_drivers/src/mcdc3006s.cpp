@@ -760,12 +760,14 @@ ROS_INFO("after ask");
 ROS_INFO("before atoi");
         if (atoi(calibrationResponse) & DRIVER_INPUT_4_MASK) {
             status = ERR_NOERR; // Sensor Reached OK.
-        }
 ROS_INFO("after atoi");
+        }
         
         else if (atoi(calibrationResponse) & CURRENT_LIMITING_MASK) {
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Current Limit Reached Could not establish home position");
             status = ERR_CURLIM; // Error calibrating the driver (limit current reached)
+ROS_INFO("after atoi2");
+
         }
 ROS_INFO("before timeout");
 
