@@ -751,7 +751,10 @@ ROS_INFO("get time");
   ROS_INFO("do loop");
  
     do {
-        char *str_tmp;
+        //char *str_tmp;
+        char str_tmp[SP_MSG_SIZE];
+    char calibrationResponse[SP_MSG_SIZE];
+        
         sprintf(str_tmp, "OST\n\r\0");
         //strcpy(str_tmp, "OST\n\r\0");
 ROS_INFO("before ask");
