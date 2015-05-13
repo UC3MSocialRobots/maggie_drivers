@@ -749,10 +749,11 @@ int Mcdc3006s::calibrate(int limit)
 ROS_INFO("get time");
     gettimeofday(&before, 0);
   ROS_INFO("do loop");
-  
+ 
     do {
         char *str_tmp;
-        strcpy(str_tmp, "OST\n\r\0");
+        sprintf(str_tmp, "OST\n\r\0");
+        //strcpy(str_tmp, "OST\n\r\0");
 ROS_INFO("before ask");
         _comm.askToRS232(str_tmp, strlen(str_tmp), calibrationResponse); /// @ToDo Error control here
 ROS_INFO("after ask");      
