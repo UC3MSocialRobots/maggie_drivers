@@ -769,13 +769,13 @@ ROS_INFO("after atoi");
 ROS_INFO("after atoi2");
 
         }
-ROS_INFO("before timeout");
-
         else if (now.tv_sec - before.tv_sec > CALIBRATION_TIMEOUT) {
             ROS_ERROR("[MCDC3006S] calibrateDriver() --> Error Calibrating the driver. Timeout. Could not establish home position");
             status = ERR_TIMEOUT; // Timeout reached before arriving to the sensor
-        }
 ROS_INFO("after timeout");
+
+        }
+ROS_INFO("after do");
         
     }
     while(status == 1);
