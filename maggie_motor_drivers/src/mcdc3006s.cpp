@@ -753,8 +753,7 @@ ROS_INFO("get time");
     do {
         //char *str_tmp;
         char str_tmp[SP_MSG_SIZE];
-    char calibrationResponse[SP_MSG_SIZE];
-        
+		char calibrationResponse[SP_MSG_SIZE];
         sprintf(str_tmp, "OST\n\r\0");
         //strcpy(str_tmp, "OST\n\r\0");
 ROS_INFO("before ask");
@@ -788,8 +787,7 @@ ROS_INFO("status 1");
     // Assuring that the driver stops at this point
     //char *str_tmp1;
     //strcpy(str_tmp1, "V0\n\r\0");
-    char str_tmp[SP_MSG_SIZE];
-    char calibrationResponse[SP_MSG_SIZE];   
+    char str_tmp1[SP_MSG_SIZE];
     sprintf(str_tmp1, "V0\n\r\0");
     
     _comm.writeToRS232(str_tmp1, strlen(str_tmp1));
