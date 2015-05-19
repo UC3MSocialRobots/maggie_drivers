@@ -47,17 +47,17 @@ echo "FINISH!"
 echo
 
 ### get source code and install labjack driver (python lang)
-echo "INSTALLING LABJACKPYTHON DRIVER..."
-echo
-
-cd /tmp
-rm -fr LabJackPython*
-git clone git://github.com/labjack/LabJackPython.git
-cd LabJackPython/
-sudo python setup.py install
-
-# config links
-ldconfig
-
-echo "FINISH!"
-echo
+#echo "INSTALLING LABJACKPYTHON DRIVER..."
+#echo
+#
+#cd /tmp
+#rm -fr LabJackPython*
+#git clone git://github.com/labjack/LabJackPython.git
+#cd LabJackPython/
+#sudo python setup.py install
+#
+##config links
+#ldconfig
+#
+#echo "FINISH!"
+#echo
