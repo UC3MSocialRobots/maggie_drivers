@@ -29,9 +29,10 @@ catkin_package(
 include_directories(
     include src
     ${catkin_INCLUDE_DIRS}
+    /usr/local/include/
 )
 
-add_subdirectory(src)
+ADD_SUBDIRECTORY(src)
 
 #############
 ## Install ##
@@ -40,6 +41,7 @@ add_subdirectory(src)
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
+## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
     PATTERN ".svn" EXCLUDE
