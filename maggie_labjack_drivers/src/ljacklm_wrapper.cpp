@@ -303,7 +303,8 @@ long LjacklmWrapper::readAIs(long num_channels, long * channels, float * voltage
             voltages[i] = 0;
         }
 
-        error = AISample(&idlj, DEMO_MODE, &stateIO, updateIO, 1, num_channels, channels, gains, disableCal, &overVoltage, voltages);
+        error = AISample(&idlj, DEMO_MODE, &stateIO, updateIO, 1, num_channels, channels, gains, disableCal,
+                         &overVoltage, voltages);
 
         if (error) {
             ROS_ERROR("[LJACKLM_WRAPPER] Error in AISample:");

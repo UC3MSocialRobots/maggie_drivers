@@ -48,7 +48,7 @@ int IrTransWrapper::connect()
         error = -1;
     }
     else {
-        ROS_INFO("[IRTRANS_WRAPPER] Successful connection with IR controller server");
+        ROS_DEBUG("[IRTRANS_WRAPPER] Successful connection with IR controller server");
     }
 
     return error;
@@ -74,7 +74,7 @@ int IrTransWrapper::send_remote_command(std::string remote, std::string command)
         error = -1;
     }
     else {
-        ROS_INFO("[IRTRANS_WRAPPER] IR command sent: '%s'", remote.c_str());
+        ROS_DEBUG("[IRTRANS_WRAPPER] IR command sent: '%s'", remote.c_str());
     }
 
     return error;

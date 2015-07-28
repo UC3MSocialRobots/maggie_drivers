@@ -798,7 +798,7 @@ int Mcdc3006s::calibrate(int limit)
 
     // Moving the driver to 0.
     if (status == ERR_NOERR) {
-        ROS_INFO("[MCDC3006S] calibrateDriver() --> Going to home position");
+        ROS_DEBUG("[MCDC3006S] calibrateDriver() --> Going to home position");
 
         // move driver to the requested position (in pulses)
         move_rel_pos(limit);
