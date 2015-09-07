@@ -4,11 +4,6 @@ project(maggie_ir_drivers)
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS roscpp)
 
-# install third parties
-execute_process(COMMAND sudo bash install.bash
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/third_parties/IRTrans_shlib/
-)
-
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -43,11 +38,6 @@ ADD_SUBDIRECTORY(src)
 
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
-    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-    PATTERN ".svn" EXCLUDE
-)
-
-install(DIRECTORY /usr/local/include/irtrans
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
     PATTERN ".svn" EXCLUDE
 )
