@@ -24,6 +24,7 @@ catkin_package(
 include_directories(
     include src
     ${catkin_INCLUDE_DIRS}
+    ${sr_communications_INCLUDE_DIRS}
 )
 
 ADD_SUBDIRECTORY(src)
