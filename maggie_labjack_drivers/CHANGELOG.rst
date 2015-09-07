@@ -2,6 +2,12 @@
 Changelog for package maggie_labjack_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.3 (2015-09-07)
+-----------
+* updated old attempt
+* updated log info by debug
+* Contributors: Raul Perula-Martinez, Raúl Pérula-Martínez
+
 0.0.2 (2015-06-06)
 -----------
 * testing 3rd party header catking install
