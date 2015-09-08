@@ -34,8 +34,8 @@
 	<exec_depend>roscpp</exec_depend>
 
 	<!-- 3rd party packages dependencies -->
-	<build_depend>ir_drivers</build_depend>
-	<exec_depend>ir_drivers</exec_depend>
+	<build_depend>ir_trans_drivers</build_depend>
+	<exec_depend>ir_trans_drivers</exec_depend>
 
 	<!-- tests dependencies -->
 	<test_depend>gtest</test_depend>
