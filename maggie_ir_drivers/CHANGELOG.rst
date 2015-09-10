@@ -2,6 +2,12 @@
 Changelog for package maggie_ir_drivers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.0.4 (2015-09-10)
+------------------
+* updated warnings in changelogs
+* updated dependency
+* Contributors: Raul Perula-Martinez
+
 0.0.3 (2015-09-07)
 ------------------
 * updated dependencies to 3rd party of ir controller
