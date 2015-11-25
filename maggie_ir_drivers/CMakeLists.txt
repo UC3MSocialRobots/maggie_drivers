@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp)
 
 ## The catkin_package macro generates cmake config files for your package
 catkin_package(
-    INCLUDE_DIRS include
+    INCLUDE_DIRS include /usr/local/include/irtrans/
     CATKIN_DEPENDS roscpp
     DEPENDS
 )
@@ -24,7 +24,7 @@ catkin_package(
 include_directories(
     include src
     ${catkin_INCLUDE_DIRS}
-    /usr/local/include/irtrans
+    /usr/local/include/irtrans/
 )
 
 ADD_SUBDIRECTORY(src)
